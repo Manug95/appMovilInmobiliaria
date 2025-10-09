@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">AppInmobiliaria</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Menu items-->
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_inmuebles">Inmuebles</string>
+    <string name="menu_inquilinos">Inquilinos</string>
+    <string name="menu_contratos">Contratos</string>
+    <string name="menu_logout">Salir</string>
+    <string name="menu_login">Iniciar Sesión</string>
+
+    <!--Login-->
+    <string name="txt_login">Iniciar Sesión</string>
+    <string name="et_hint_email">E-Mail</string>
+    <string name="et_hint_password">Contraseña</string>
+    <string name="titulo_dialog_salir">Advertencia</string>
+    <string name="pregunta_dialog_salir">¿Salir de la App?</string>
+    <string name="dialog_si">SI</string>
+    <string name="dialog_no">NO</string>
+</resources>
