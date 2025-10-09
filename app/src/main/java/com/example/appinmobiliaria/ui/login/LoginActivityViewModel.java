@@ -1,7 +1,6 @@
 package com.example.appinmobiliaria.ui.login;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -57,7 +56,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(getApplication(), "Error al hacer la petición", Toast.LENGTH_LONG).show();
+                mLoginIncorrecto.setValue("Error al hacer la petición");
             }
         });
     }

@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.tvLoginIncorrecto.setText("");
                 String email = binding.etMailLogin.getText().toString();
                 String password = binding.etPasswordLogin.getText().toString();
                 viewModel.login(email, password);
