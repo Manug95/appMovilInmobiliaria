@@ -24,6 +24,28 @@
     <string name="et_hint_password">Contraseña</string>
     <string name="titulo_dialog_salir">Advertencia</string>
     <string name="pregunta_dialog_salir">¿Salir de la App?</string>
+
+    <!--Perfil-->
+    <string name="tv_titulo_perfil">Mis Datos</string>
+    <string name="tv_nombre">Nombre</string>
+    <string name="tv_apellido">Apellido</string>
+    <string name="tv_dni">DNI</string>
+    <string name="tv_telefono">Teléfono</string>
+    <string name="tv_email">E-mail</string>
+    <string name="et_hint_nombre">nombre</string>
+    <string name="et_hint_apellido">apellido</string>
+    <string name="et_hint_dni">DNI</string>
+    <string name="et_hint_telefono">teléfono</string>
+
+
+    <!--Mensajes de error de validacion-->
+    <string name="dni_vacio">El DNI no puede estar vacío</string>
+    <string name="longitud_dni">La longitud del DNI debe ser de 9 caracteres</string>
+    <string name="error_desconocido">Error desconocido</string>
+
+    <!--extras-->
     <string name="dialog_si">SI</string>
     <string name="dialog_no">NO</string>
+    <string name="guardar">Guardar</string>
+    <string name="editar">Editar</string>
 </resources>
