@@ -8,25 +8,38 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentHomeBinding;
+import com.google.android.gms.maps.SupportMapFragment;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private HomeViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
+                             ViewGroup container,
+                             Bundle savedInstanceState)
+    {
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        viewModel.getMutableMapaActual().observe(getViewLifecycleOwner(), new Observer<HomeViewModel.MapaActual>() {
+            @Override
+            public void onChanged(HomeViewModel.MapaActual mapaActual) {
+                SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapa);
+                if (supportMapFragment != null) {
+                    supportMapFragment.getMapAsync(mapaActual);
+                }
+            }
+        });
+
+        viewModel.cargarMapa();
+
+        return binding.getRoot();
     }
 
     @Override
