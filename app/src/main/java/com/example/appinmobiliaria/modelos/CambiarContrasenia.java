@@ -3,20 +3,38 @@ package com.example.appinmobiliaria.modelos;
 import com.example.appinmobiliaria.util.ResultadoValidacion;
 import com.example.appinmobiliaria.util.TipoErrorValidacion;
 
-public class CambiarContrasenia extends Login {
-    private String ClaveNueva;
+import java.io.Serializable;
 
-    public CambiarContrasenia(String email, String clave, String claveNueva) {
-        super(email, clave);
-        ClaveNueva = claveNueva;
+public class CambiarContrasenia implements Serializable {
+    private String claveActual;
+    private String claveNueva;
+
+    public CambiarContrasenia(String claveActual, String claveNueva) {
+        this.claveActual = claveActual;
+        this.claveNueva = claveNueva;
     }
 
     public String getClaveNueva() {
-        return ClaveNueva;
+        return claveNueva;
     }
 
     public void setClaveNueva(String claveNueva) {
-        ClaveNueva = claveNueva;
+        this.claveNueva = claveNueva;
+    }
+
+    public String getClaveActual() {
+        return claveActual;
+    }
+
+    public void setClaveActual(String claveActual) {
+        this.claveActual = claveActual;
+    }
+
+    public static ResultadoValidacion validarClaveActual(String claveActual) {
+        if (claveActual == null || claveActual.isEmpty())
+            return new ResultadoValidacion("La clave actual no puede estar vacía", TipoErrorValidacion.CAMPO_VACIO);
+
+        return new ResultadoValidacion(null, TipoErrorValidacion.SIN_ERROR);
     }
 
     public static ResultadoValidacion validarClaveNueva(String claveNueva) {

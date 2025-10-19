@@ -55,20 +55,28 @@ public class ApiClient {
     }
 
     public interface InmobiliariaService {
+        //endpoints de la API de prueba
         @FormUrlEncoded
         @POST("api/Propietarios/login")
         Call<String> login(@Field("Usuario") String email, @Field("Clave")String password);
-
-        @POST("todavia no tengo el path")
-        Call<String> login(@Body Login login);
-
-        @PATCH("todavia no tengo el path")
-        Call<String> cambiarContrasenia(@Header("Authorization") String token, @Body CambiarContrasenia cambiarContrasenia);
 
         @GET("api/Propietarios")
         Call<Propietario> getPropietario(@Header("Authorization") String token);
 
         @PUT("api/Propietarios/actualizar")
         Call<Propietario> putPropietario(@Header("Authorization") String token, @Body Propietario propietario);
+
+        @FormUrlEncoded
+        @PUT("api/Propietarios/changePassword")
+        Call<String> cambiarContrasenia(@Header("Authorization") String token, @Field("currentPassword") String claveActual, @Field("newPassword") String claveNueva);
+
+        //endpoints que va a tener mi API
+        @POST("todavia no tengo el path")
+        Call<String> login(@Body Login login);
+
+        @PATCH("todavia no tengo el path")
+        Call<String> cambiarContrasenia(@Header("Authorization") String token, @Body CambiarContrasenia cambiarContrasenia);
+
+
     }
 }

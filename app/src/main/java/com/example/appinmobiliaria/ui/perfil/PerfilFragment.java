@@ -8,11 +8,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentPerfilBinding;
 import com.example.appinmobiliaria.modelos.Propietario;
 
@@ -117,6 +119,15 @@ public class PerfilFragment extends Fragment {
                 String email = binding.etEmail.getText().toString();
 
                 viewModel.editarPropietario(binding.btnAccion.getText().toString(), nombre, apellido, dni, telefono, email);
+            }
+        });
+
+        binding.btnIrCambiarContrasenia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation
+                        .findNavController(getActivity(), R.id.nav_host_fragment_content_main)
+                        .navigate(R.id.cambiarContraseniaFragment);
             }
         });
 
