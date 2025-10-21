@@ -5,5 +5,5 @@ public enum TipoErrorValidacion {
     CAMPO_VACIO,
     LONGITUD_INCORRECTA,
     FORMATO_INCORRECTO,
-    FORMATO_INVALIDO
+    VALOR_NEGATIVO
 }

@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.appinmobiliaria.modelos.CambiarContrasenia;
+import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.modelos.Login;
 import com.example.appinmobiliaria.modelos.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -23,7 +26,8 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 public class ApiClient {
-    private static final String URL_BASE = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
+    public static final String URL_BASE = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
+    public static final String URL_BASE_PRUEBA = "http://192.168.1.10:5113/";
 
     public static InmobiliariaService getInmobiliariaService() {
         Gson gson = new GsonBuilder().setLenient().create();
@@ -69,6 +73,12 @@ public class ApiClient {
         @FormUrlEncoded
         @PUT("api/Propietarios/changePassword")
         Call<String> cambiarContrasenia(@Header("Authorization") String token, @Field("currentPassword") String claveActual, @Field("newPassword") String claveNueva);
+
+        @GET("api/Inmuebles")
+        Call<List<Inmueble>> getInmuebles(@Header("Authorization") String token);
+
+        @PUT("api/Inmuebles/actualizar")
+        Call<Inmueble> actualizarInmueble(@Header("Authorization") String token, @Body Inmueble inmueble);
 
         //endpoints que va a tener mi API
         @POST("todavia no tengo el path")
