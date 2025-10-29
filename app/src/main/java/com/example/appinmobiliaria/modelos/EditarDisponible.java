@@ -1,12 +1,16 @@
 package com.example.appinmobiliaria.modelos;
 
 public class EditarDisponible {
-    private int id;
-    private boolean disponible;
+    //private int id;
+    private boolean estado;
 
     public EditarDisponible() {}
 
-    public EditarDisponible(int id, boolean disponible) {
+    public EditarDisponible(boolean estado) {
+        this.estado = estado;
+    }
+
+    /*public EditarDisponible(int id, boolean disponible) {
         this.id = id;
         this.disponible = disponible;
     }
@@ -17,13 +21,13 @@ public class EditarDisponible {
 
     public void setId(int id) {
         this.id = id;
+    }*/
+
+    public boolean isEstado() {
+        return estado;
     }
 
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

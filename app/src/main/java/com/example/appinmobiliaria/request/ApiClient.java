@@ -34,6 +34,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public class ApiClient {
     public static final String URL_BASE_PRUEBA = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
@@ -135,8 +136,8 @@ public class ApiClient {
         @GET("Inmuebles/alquilados")
         Call<List<Inmueble>> getInmueblesAlquilados(@Header("Authorization") String token);
 
-        @PATCH("Inmueble/disponible")
-        Call<Void> cambiarDisponible(@Header("Authorization") String token, @Body EditarDisponible editarDisponible);
+        @PATCH("Inmueble/{id}/disponible")
+        Call<Void> cambiarDisponible(@Header("Authorization") String token, @Path("id") int id, @Body EditarDisponible editarDisponible);
 
         @POST("Inmueble")
         Call<Inmueble> crearInmueble(@Header("Authorization") String token, @Body Inmueble inmueble);

@@ -58,9 +58,10 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
 
-        EditarDisponible editarDisponible = new EditarDisponible(mInmueble.getValue().getId(), estado);
+        EditarDisponible editarDisponible = new EditarDisponible(estado);
+        int inmuebleId = mInmueble.getValue().getId();
 
-        Call<Void> callCambiarDisponible = api.cambiarDisponible(token, editarDisponible);
+        Call<Void> callCambiarDisponible = api.cambiarDisponible(token, inmuebleId, editarDisponible);
 
         callCambiarDisponible.enqueue(new Callback<Void>() {
 
