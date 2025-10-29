@@ -40,6 +40,7 @@
     <string name="contrasenia_actual">Contraseña Actual</string>
     <string name="nueva_contrasenia">Nueva Contraseña</string>
     <string name="repetir_nueva_contrasenia">Repita la Nueva Contraseña</string>
+    <string name="cambiar_la_contrasenia">Cambiar la Contraseña</string>
 
 
     <!--Mensajes de error de validacion-->
@@ -50,13 +51,34 @@
     <!--extras-->
     <string name="dialog_si">SI</string>
     <string name="dialog_no">NO</string>
+    <string name="dialog_ok">OK</string>
+    <string name="titulo_dialog_mensaje">Mensaje</string>
     <string name="guardar">Guardar</string>
     <string name="editar">Editar</string>
     <string name="cambiar">Cambiar</string>
+    <string name="nombre_y_apellido">Nombre y Apellido</string>
 
     <!--Home-->
     <string name="titulo_home">Donde Nos Encontramos</string>
 
     <!--inmuebles-->
     <string name="foto_del_inmueble">Foto del inmueble</string>
+    <string name="agregar_inmueble">Agregar Inmueble</string>
+    <string name="calle">Calle</string>
+    <string name="nro">Nro</string>
+    <string name="tipo_de_inmueble">Tipo de Inmueble</string>
+    <string name="uso">Uso</string>
+    <string name="cant_ambientes">Cant. ambientes</string>
+    <string name="precio">Precio</string>
+    <string name="direccion">Dirección</string>
+    <string name="latitud">Latitud</string>
+    <string name="longitud">Longitud</string>
+    <string name="disponible">Disponible</string>
+    <string name="detalle_del_inmueble">Detalle del Inmueble</string>
+    <string name="cargar_foto">Cargar Foto</string>
+    <string name="foto_del_inmueble_a_registrar">Foto del Inmueble a registrar</string>
+
+    <!--inquilino-->
+    <string name="inquilino">Inquilino</string>
+    <string name="detalle">Detalle</string>
 </resources>

@@ -19,13 +19,13 @@ public class Inmueble implements Serializable {
     private double longitud;
     private boolean disponible;
     private String foto;
-    private Propietario propietario;
-    private TipoInmueble tipoInmueble;
-
+    private Propietario duenio;
+    private String tipoInmueble;
+    //private TipoInmueble tipoInmuebleObj;
 
     public Inmueble() { }
 
-    public Inmueble(int id, int idPropietario, int idTipoInmueble, int cantidadAmbientes, String uso, String calle, int nroCalle, double precio, double latitud, double longitud, boolean disponible) {
+    public Inmueble(int id, int idPropietario, int idTipoInmueble, String tipoInmueble, int cantidadAmbientes, String uso, String calle, int nroCalle, double precio, double latitud, double longitud, boolean disponible) {
         this.id = id;
         this.idPropietario = idPropietario;
         this.idTipoInmueble = idTipoInmueble;
@@ -37,9 +37,10 @@ public class Inmueble implements Serializable {
         this.latitud = latitud;
         this.longitud = longitud;
         this.disponible = disponible;
+        this.tipoInmueble = tipoInmueble;
     }
 
-    public Inmueble(int idPropietario, int idTipoInmueble, int cantidadAmbientes, String uso, String calle, int nroCalle, double precio, double latitud, double longitud, boolean disponible) {
+    public Inmueble(int idPropietario, int idTipoInmueble, String tipoInmueble, int cantidadAmbientes, String uso, String calle, int nroCalle, double precio, double latitud, double longitud, boolean disponible) {
         this.idPropietario = idPropietario;
         this.idTipoInmueble = idTipoInmueble;
         this.cantidadAmbientes = cantidadAmbientes;
@@ -50,6 +51,17 @@ public class Inmueble implements Serializable {
         this.latitud = latitud;
         this.longitud = longitud;
         this.disponible = disponible;
+        this.tipoInmueble = tipoInmueble;
+    }
+
+    public Inmueble(String calle, int nroCalle, int cantidadAmbientes, String tipoInmueble, String uso, double precio, boolean disponible) {
+        this.cantidadAmbientes = cantidadAmbientes;
+        this.uso = uso;
+        this.calle = calle;
+        this.nroCalle = nroCalle;
+        this.precio = precio;
+        this.disponible = disponible;
+        this.tipoInmueble = tipoInmueble;
     }
 
     public int getId() {
@@ -74,6 +86,14 @@ public class Inmueble implements Serializable {
 
     public void setIdTipoInmueble(int idTipoInmueble) {
         this.idTipoInmueble = idTipoInmueble;
+    }
+
+    public String getTipoInmueble() {
+        return tipoInmueble;
+    }
+
+    public void setTipoInmueble(String tipoInmueble) {
+        this.tipoInmueble = tipoInmueble;
     }
 
     public int getCantidadAmbientes() {
@@ -148,21 +168,21 @@ public class Inmueble implements Serializable {
         this.foto = foto;
     }
 
-    public Propietario getPropietario() {
-        return propietario;
+    public Propietario getDuenio() {
+        return duenio;
     }
 
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
+    public void setDuenio(Propietario duenio) {
+        this.duenio = duenio;
     }
 
-    public TipoInmueble getTipoInmueble() {
-        return tipoInmueble;
+    /*public TipoInmueble getTipoInmuebleObj() {
+        return tipoInmuebleObj;
     }
 
-    public void setTipoInmueble(TipoInmueble tipoInmueble) {
-        this.tipoInmueble = tipoInmueble;
-    }
+    public void setTipoInmuebleObj(TipoInmueble tipoInmuebleObj) {
+        this.tipoInmuebleObj = tipoInmuebleObj;
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -181,7 +201,7 @@ public class Inmueble implements Serializable {
     }*/
 
     public static ResultadoValidacion validarPrecio(String precioStr) {
-        if (precioStr.isEmpty()) {
+        if (precioStr.isBlank()) {
             return new ResultadoValidacion("El precio no puede estar vacío", TipoErrorValidacion.CAMPO_VACIO);
         }
         double precio;
@@ -202,6 +222,16 @@ public class Inmueble implements Serializable {
         }
         if (uso.length() > 50) {
             return new ResultadoValidacion("El uso no puede tener más de 50 caracteres", TipoErrorValidacion.LONGITUD_INCORRECTA);
+        }
+        return new ResultadoValidacion(null, TipoErrorValidacion.SIN_ERROR);
+    }
+
+    public static ResultadoValidacion validarTipoInmueble(String tipoInmueble) {
+        if (tipoInmueble.isEmpty()) {
+            return new ResultadoValidacion("El tipo de inmueble no puede estar vacío", TipoErrorValidacion.CAMPO_VACIO);
+        }
+        if (tipoInmueble.length() > 50) {
+            return new ResultadoValidacion("El tipo de inmueble no puede tener más de 50 caracteres", TipoErrorValidacion.LONGITUD_INCORRECTA);
         }
         return new ResultadoValidacion(null, TipoErrorValidacion.SIN_ERROR);
     }
@@ -282,38 +312,5 @@ public class Inmueble implements Serializable {
             return new ResultadoValidacion("La cantidad de ambientes debe ser un número válido", TipoErrorValidacion.FORMATO_INCORRECTO);
         }
         return new ResultadoValidacion(null, TipoErrorValidacion.SIN_ERROR);
-    }
-
-    private String direccion;
-    private double valor;
-    private String imagen;
-
-    public Inmueble(String direccion, double valor, String imagen) {
-        this.direccion = direccion;
-        this.valor = valor;
-        this.imagen = imagen;    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
     }
 }

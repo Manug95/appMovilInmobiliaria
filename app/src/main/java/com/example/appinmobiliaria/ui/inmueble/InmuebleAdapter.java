@@ -24,6 +24,18 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.Inmueb
     private List<Inmueble> listaInmuebles;
     private Context context;
     private LayoutInflater layoutInflater;
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Inmueble inmueble);
+    }
+
+    public InmuebleAdapter(List<Inmueble> listaInmuebles, Context context, LayoutInflater layoutInflater, OnItemClickListener listener) {
+        this.listaInmuebles = listaInmuebles;
+        this.context = context;
+        this.layoutInflater = layoutInflater;
+        this.listener = listener;
+    }
 
     public InmuebleAdapter(List<Inmueble> listaInmuebles, Context context, LayoutInflater layoutInflater) {
         this.listaInmuebles = listaInmuebles;
@@ -49,7 +61,7 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.Inmueb
         return listaInmuebles.size();
     }
 
-    public static class InmuebleViewHolder extends RecyclerView.ViewHolder{
+    public class InmuebleViewHolder extends RecyclerView.ViewHolder{
         private final ItemInmuebleBinding binding;
 
         public InmuebleViewHolder(@NonNull ItemInmuebleBinding binding) {
@@ -59,16 +71,16 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.Inmueb
 
         @SuppressLint("SetTextI18n")
         public void bind(Inmueble inmueble) {
-            binding.tvDireccion.setText(inmueble.getDireccion());
-            //binding.tvPrecio.setText("$" + inmueble.getPrecio());
-            binding.tvPrecio.setText("$" + inmueble.getValor());
+            String direccion = inmueble.getCalle() + " " + inmueble.getNroCalle();
+            binding.tvDireccion.setText(direccion);
+            binding.tvPrecio.setText("$" + inmueble.getPrecio());
             Glide.with(binding.getRoot())
-                    .load(ApiClient.URL_BASE + inmueble.getImagen())
+                    .load(ApiClient.URL_BASE + inmueble.getFoto())
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_foreground)
                     .into(binding.ivFotoInmueble);
 
-            binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
+            /*binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
@@ -77,7 +89,14 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.Inmueb
                             .findNavController((Activity) v.getContext(), R.id.nav_host_fragment_content_main)
                             .navigate(R.id.detalleInmuebleFragment, bundle);
                 }
+            });*/
+            binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(inmueble);
+                }
             });
+
         }
     }
 }

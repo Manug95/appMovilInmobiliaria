@@ -22,7 +22,7 @@ public class InmuebleViewModel extends AndroidViewModel {
 
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
-        getInmuebles();
+        //getInmuebles();
     }
 
     public LiveData<List<Inmueble>> getMInmuebles() {

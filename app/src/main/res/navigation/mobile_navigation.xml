@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_nav_inmuebles_to_detalleInmuebleFragment"
             app:destination="@id/detalleInmuebleFragment" />
+        <action
+            android:id="@+id/action_nav_inmuebles_to_nuevoInmuebleFragment"
+            app:destination="@id/nuevoInmuebleFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_inquilinos"
@@ -46,7 +49,7 @@
     <fragment
         android:id="@+id/cambiarContraseniaFragment"
         android:name="com.example.appinmobiliaria.ui.perfil.CambiarContraseniaFragment"
-        android:label="fragment_cambiar_contrasenia"
+        android:label="@string/cambiar_la_contrasenia"
         tools:layout="@layout/fragment_cambiar_contrasenia" >
         <action
             android:id="@+id/action_cambiarContraseniaFragment_to_nav_perfil"
@@ -55,10 +58,19 @@
     <fragment
         android:id="@+id/detalleInmuebleFragment"
         android:name="com.example.appinmobiliaria.ui.inmueble.DetalleInmuebleFragment"
-        android:label="fragment_detalle_inmueble"
+        android:label="@string/detalle_del_inmueble"
         tools:layout="@layout/fragment_detalle_inmueble" >
         <action
             android:id="@+id/action_detalleInmuebleFragment_to_nav_inmuebles"
+            app:destination="@id/nav_inmuebles" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevoInmuebleFragment"
+        android:name="com.example.appinmobiliaria.ui.inmueble.NuevoInmuebleFragment"
+        android:label="@string/agregar_inmueble"
+        tools:layout="@layout/fragment_nuevo_inmueble" >
+        <action
+            android:id="@+id/action_nuevoInmuebleFragment_to_nav_inmuebles"
             app:destination="@id/nav_inmuebles" />
     </fragment>
 </navigation>

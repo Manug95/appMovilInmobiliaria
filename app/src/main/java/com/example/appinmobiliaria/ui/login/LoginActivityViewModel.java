@@ -1,12 +1,14 @@
 package com.example.appinmobiliaria.ui.login;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.appinmobiliaria.modelos.Login;
 import com.example.appinmobiliaria.request.ApiClient;
 
 import retrofit2.Call;
@@ -41,7 +43,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
         }
 
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
-        Call<String> apiCall = api.login(email, password);
+        Call<String> apiCall = api.login(new Login(email, password));
 
         apiCall.enqueue(new Callback<String>() {
             @Override

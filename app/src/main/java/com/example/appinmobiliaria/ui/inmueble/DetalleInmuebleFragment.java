@@ -1,8 +1,10 @@
 package com.example.appinmobiliaria.ui.inmueble;
 
+import androidx.annotation.ColorInt;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,15 +18,21 @@ import android.widget.CompoundButton;
 
 import com.bumptech.glide.Glide;
 import com.example.appinmobiliaria.R;
+import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
 import com.example.appinmobiliaria.databinding.FragmentDetalleInmuebleBinding;
 import com.example.appinmobiliaria.databinding.FragmentInmuebleBinding;
 import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.request.ApiClient;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class DetalleInmuebleFragment extends Fragment {
 
     private DetalleInmuebleViewModel viewModel;
     private FragmentDetalleInmuebleBinding binding;
+    @ColorInt
+    private int COLOR_ERROR;
+    @ColorInt
+    private int COLOR_EXITO;
 
     public static DetalleInmuebleFragment newInstance() {
         return new DetalleInmuebleFragment();
@@ -37,43 +45,83 @@ public class DetalleInmuebleFragment extends Fragment {
     {
         binding = FragmentDetalleInmuebleBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(DetalleInmuebleViewModel.class);
+        COLOR_EXITO = getResources().getColor(R.color.success, null);
+        COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMInmueble().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
             @Override
             public void onChanged(Inmueble inmueble) {
-                binding.tvIdInmueble.setText(String.valueOf(inmueble.getId()));
-                binding.tvDireccionI.setText(inmueble.getDireccion());
-                binding.tvUsoI.setText(inmueble.getUso());
-                binding.tvAmbientesI.setText(String.valueOf(inmueble.getCantidadAmbientes()));
-                binding.tvLatitudI.setText(String.valueOf(inmueble.getLatitud()));
-                binding.tvLongitudI.setText(String.valueOf(inmueble.getLongitud()));
-                binding.tvValorI.setText(String.valueOf(inmueble.getValor()));
+                String direccion = inmueble.getCalle() + " " + inmueble.getNroCalle();
+                binding.tvDireccion.setText(direccion);
+                binding.tvUso.setText(inmueble.getUso());
+                binding.tvAmbientes.setText(String.valueOf(inmueble.getCantidadAmbientes()));
+                binding.tvLatitud.setText(String.valueOf(inmueble.getLatitud()));
+                binding.tvLongitud.setText(String.valueOf(inmueble.getLongitud()));
+                binding.tvPrecio.setText(String.valueOf(inmueble.getPrecio()));
                 binding.checkDisponible.setChecked(inmueble.isDisponible());
                 Glide.with(binding.getRoot())
-                        .load(ApiClient.URL_BASE + inmueble.getImagen())
+                        .load(ApiClient.URL_BASE + inmueble.getFoto())
                         .placeholder(R.drawable.ic_launcher_foreground)
                         .error(R.drawable.ic_launcher_foreground)
-                        .into(binding.imgInmuebleD);
+                        .into(binding.ivFoto);
             }
         });
 
-        viewModel.getMErroActualizacion().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        viewModel.getMErroActualizacion().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                muestraDialog(s, COLOR_ERROR);
+            }
+        });
+
+        viewModel.getMEstadoDisponible().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 binding.checkDisponible.setChecked(aBoolean);
             }
         });
 
-        binding.checkDisponible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        viewModel.getMEXitoCambioDisponibilidad().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                muestraDialog(s, COLOR_EXITO);
+            }
+        });
+
+        /*binding.checkDisponible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull CompoundButton buttonView, boolean isChecked) {
                 viewModel.cambiarDisponibilidad(isChecked);
+            }
+        });*/
+        binding.checkDisponible.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.cambiarDisponibilidad(binding.checkDisponible.isChecked());
             }
         });
 
         viewModel.recuperarInmueble(getArguments());
 
         return binding.getRoot();
+    }
+
+    private void muestraDialog(String mensaje, @ColorInt int colorDelMensaje){
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        DialogMensajePersonalizadoBinding dialogBinding = DialogMensajePersonalizadoBinding.inflate(inflater);
+
+        dialogBinding.tvMensajeDialog.setText(mensaje);
+        dialogBinding.tvMensajeDialog.setTextColor(colorDelMensaje);
+
+        new MaterialAlertDialogBuilder(getContext())
+        .setTitle(R.string.titulo_dialog_mensaje)
+        .setView(dialogBinding.getRoot())
+        .setNeutralButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface di,int i){
+                di.dismiss();
+            }
+        }).show();
     }
 
 }

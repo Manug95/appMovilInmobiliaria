@@ -10,213 +10,246 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentBottom="true"
     android:id="@+id/detalleInmueble"
-    android:background="#B39DDB"
     >
 
     <TextView
-        android:id="@+id/tvInfoCodigo"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvTituloDetalleInmueble"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:paddingStart="5dp"
-        android:text="ID: "
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/detalle"
+        android:textAlignment="center"
+        android:textColor="@color/purple_700"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvIdInmueble"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvIdInmueble"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingEnd="5dp"
-        android:text="12345"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvInfoCodigo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvInfoDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Direccion: "
-        android:paddingStart="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/direccion"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvDireccionI"
+        app:layout_constraintEnd_toStartOf="@+id/tvDireccion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvInfoCodigo" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloDetalleInmueble" />
 
     <TextView
-        android:id="@+id/tvDireccionI"
+        android:id="@+id/tvDireccion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Av. Siempre Viva 742"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
         android:paddingEnd="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="Av. Siempre Viva 742"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoDireccion"
-        app:layout_constraintTop_toBottomOf="@+id/tvIdInmueble" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloDetalleInmueble" />
+
+    <TextView
+        android:id="@+id/tvLabelTipoInmueble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/tipo_de_inmueble"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfoDireccion" />
+
+    <TextView
+        android:id="@+id/tvTipoInmueble"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:paddingEnd="5dp"
+        android:text="CASA"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLabelTipoInmueble"
+        app:layout_constraintTop_toBottomOf="@+id/tvDireccion" />
 
     <TextView
         android:id="@+id/tvInfoUso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Uso: "
-        android:paddingStart="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/uso"
+        android:layout_marginStart="5dp"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvUsoI"
+        app:layout_constraintEnd_toStartOf="@+id/tvUso"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDireccionI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelTipoInmueble" />
 
     <TextView
-        android:id="@+id/tvUsoI"
+        android:id="@+id/tvUso"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
-        android:text="Residencial"
+        android:layout_marginEnd="5dp"
         android:paddingEnd="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="Residencial"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoUso"
-        app:layout_constraintTop_toBottomOf="@+id/tvDireccionI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTipoInmueble" />
 
     <TextView
         android:id="@+id/tvInfoAmbientesI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Ambientes: "
-        android:paddingStart="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/cant_ambientes"
+        android:layout_marginStart="5dp"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvAmbientesI"
+        app:layout_constraintEnd_toStartOf="@+id/tvAmbientes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsoI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUso" />
 
     <TextView
-        android:id="@+id/tvAmbientesI"
+        android:id="@+id/tvAmbientes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
-        android:text="3"
+        android:layout_marginEnd="5dp"
         android:paddingEnd="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="3"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoAmbientesI"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsoI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUso" />
 
     <TextView
         android:id="@+id/tvInfoLatitud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Latitud: "
-        android:paddingStart="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/latitud"
+        android:layout_marginStart="5dp"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvLatitudI"
+        app:layout_constraintEnd_toStartOf="@+id/tvLatitud"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAmbientesI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAmbientes" />
 
     <TextView
-        android:id="@+id/tvLatitudI"
+        android:id="@+id/tvLatitud"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
-        android:text="45.12345"
+        android:layout_marginEnd="5dp"
         android:paddingEnd="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="45.12345"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoLatitud"
-        app:layout_constraintTop_toBottomOf="@+id/tvAmbientesI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAmbientes" />
 
     <TextView
         android:id="@+id/tvInfoLongitud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Longitud: "
-        android:paddingStart="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/longitud"
+        android:layout_marginStart="5dp"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvLongitudI"
+        app:layout_constraintEnd_toStartOf="@+id/tvLongitud"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLatitudI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLatitud" />
 
     <TextView
-        android:id="@+id/tvLongitudI"
+        android:id="@+id/tvLongitud"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
-        android:text="-93.12345"
+        android:layout_marginEnd="5dp"
         android:paddingEnd="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="-93.12345"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoLongitud"
-        app:layout_constraintTop_toBottomOf="@+id/tvLatitudI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLatitud" />
 
     <TextView
         android:id="@+id/tvInfoValor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Valor: $"
-        android:paddingStart="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/precio"
+        android:layout_marginStart="5dp"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/tvValorI"
+        app:layout_constraintEnd_toStartOf="@+id/tvPrecio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLongitudI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitud" />
 
     <TextView
-        android:id="@+id/tvValorI"
+        android:id="@+id/tvPrecio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
-        android:text="$120,000"
+        android:layout_marginEnd="5dp"
         android:paddingEnd="5dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="$120,000"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfoValor"
-        app:layout_constraintTop_toBottomOf="@+id/tvLongitudI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitud" />
 
     <CheckBox
         android:id="@+id/checkDisponible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Disponible"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:text="@string/disponible"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvValorI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrecio" />
 
     <ImageView
-        android:id="@+id/imgInmuebleD"
+        android:id="@+id/ivFoto"
         android:layout_width="275dp"
         android:layout_height="210dp"
         android:layout_marginTop="20dp"

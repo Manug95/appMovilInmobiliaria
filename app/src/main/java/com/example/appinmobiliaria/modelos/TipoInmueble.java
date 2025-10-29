@@ -56,4 +56,9 @@ public class TipoInmueble implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    @Override
+    public String toString() {
+        return tipo;
+    }
 }

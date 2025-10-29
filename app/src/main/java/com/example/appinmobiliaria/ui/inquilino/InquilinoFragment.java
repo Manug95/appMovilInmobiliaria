@@ -1,38 +1,65 @@
 package com.example.appinmobiliaria.ui.inquilino;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.appinmobiliaria.R;
+import com.example.appinmobiliaria.databinding.FragmentInquilinoBinding;
+import com.example.appinmobiliaria.modelos.Inmueble;
+import com.example.appinmobiliaria.ui.inmueble.InmuebleAdapter;
+
+import java.util.List;
 
 public class InquilinoFragment extends Fragment {
-
-    private InquilinoViewModel mViewModel;
+    private FragmentInquilinoBinding binding;
+    private InquilinoViewModel viewModel;
 
     public static InquilinoFragment newInstance() {
         return new InquilinoFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_inquilino, container, false);
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState)
+    {
+        binding = FragmentInquilinoBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(this).get(InquilinoViewModel.class);
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(InquilinoViewModel.class);
-        // TODO: Use the ViewModel
+        viewModel.getMInmuebles().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
+            @Override
+            public void onChanged(List<Inmueble> inmuebles) {
+                //InmuebleAdapter adapter = new InmuebleAdapter(inmuebles, getContext(), getLayoutInflater());
+                InmuebleAdapter adapter = new InmuebleAdapter(inmuebles, getContext(), getLayoutInflater(), new InmuebleAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Inmueble inmueble) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("inmueble", inmueble);
+                        Navigation
+                                .findNavController((Activity) getContext(), R.id.nav_host_fragment_content_main)
+                                .navigate(R.id.detalleInmuebleFragment, bundle);
+                    }
+                });
+                GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+                binding.rvInmueblesAlquilados.setLayoutManager(glm);
+                binding.rvInmueblesAlquilados.setAdapter(adapter);
+            }
+        });
+
+        return binding.getRoot();
     }
 
 }

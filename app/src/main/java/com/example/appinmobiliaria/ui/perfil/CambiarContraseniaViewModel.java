@@ -53,7 +53,7 @@ public class CambiarContraseniaViewModel extends AndroidViewModel {
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
 
-        Call<String> callCambiarContrasenia = api.cambiarContrasenia(token, contraseniaActual, nuevaContrasenia);
+        Call<String> callCambiarContrasenia = api.cambiarContrasenia(token, new CambiarContrasenia(contraseniaActual, nuevaContrasenia));
 
         callCambiarContrasenia.enqueue(new Callback<String>() {
             @Override
