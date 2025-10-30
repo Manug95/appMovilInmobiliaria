@@ -56,6 +56,7 @@
     <string name="guardar">Guardar</string>
     <string name="editar">Editar</string>
     <string name="cambiar">Cambiar</string>
+    <string name="detalle">Detalle</string>
     <string name="nombre_y_apellido">Nombre y Apellido</string>
 
     <!--Home-->
@@ -80,5 +81,5 @@
 
     <!--inquilino-->
     <string name="inquilino">Inquilino</string>
-    <string name="detalle">Detalle</string>
+    <string name="detalle_del_inquilino">Detalle del Inquilino</string>
 </resources>

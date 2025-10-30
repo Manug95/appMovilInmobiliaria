@@ -1,5 +1,6 @@
 package com.example.appinmobiliaria.ui.inquilino;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentDetalleInquilinoBinding;
+import com.example.appinmobiliaria.modelos.Inquilino;
 
 public class DetalleInquilinoFragment extends Fragment {
     private FragmentDetalleInquilinoBinding binding;
@@ -31,9 +33,20 @@ public class DetalleInquilinoFragment extends Fragment {
         binding = FragmentDetalleInquilinoBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(DetalleInquilinoViewModel.class);
 
+        viewModel.getMInquilino().observe(getViewLifecycleOwner(), new Observer<Inquilino>() {
+            @Override
+            public void onChanged(Inquilino inquilino) {
+                String nombreYApellido = inquilino.getNombre() + " " + inquilino.getApellido();
+                binding.tvNombreYApellidoInquilino.setText(nombreYApellido);
+                binding.tvDNIInquilino.setText(String.valueOf(inquilino.getDni()));
+                binding.tvTelefonoInquilino.setText(String.valueOf(inquilino.getTelefono()));
+                binding.tvEmailInquilino.setText(inquilino.getEmail());
+            }
+        });
 
+        viewModel.recuperarInquilino(getArguments());
 
-        return inflater.inflate(R.layout.fragment_detalle_inquilino, container, false);
+        return binding.getRoot();
     }
 
 }

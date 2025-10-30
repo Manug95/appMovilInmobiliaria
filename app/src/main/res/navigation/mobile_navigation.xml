@@ -35,7 +35,11 @@
         android:id="@+id/nav_inquilinos"
         android:name="com.example.appinmobiliaria.ui.inquilino.InquilinoFragment"
         android:label="@string/menu_inquilinos"
-        tools:layout="@layout/fragment_inquilino" />
+        tools:layout="@layout/fragment_inquilino" >
+        <action
+            android:id="@+id/action_nav_inquilinos_to_detalleInquilinoFragment"
+            app:destination="@id/detalleInquilinoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_contratos"
         android:name="com.example.appinmobiliaria.ui.contrato.ContratoFragment"
@@ -72,5 +76,14 @@
         <action
             android:id="@+id/action_nuevoInmuebleFragment_to_nav_inmuebles"
             app:destination="@id/nav_inmuebles" />
+    </fragment>
+    <fragment
+        android:id="@+id/detalleInquilinoFragment"
+        android:name="com.example.appinmobiliaria.ui.inquilino.DetalleInquilinoFragment"
+        android:label="@string/detalle_del_inquilino"
+        tools:layout="@layout/fragment_detalle_inquilino" >
+        <action
+            android:id="@+id/action_detalleInquilinoFragment_to_nav_inquilinos"
+            app:destination="@id/nav_inquilinos" />
     </fragment>
 </navigation>

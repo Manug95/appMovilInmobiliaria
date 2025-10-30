@@ -200,6 +200,7 @@ public class NuevoInmuebleFragment extends Fragment {
         binding.tvErrorUso.setText("");
         binding.tvErrorCantidadAmbientes.setText("");
         binding.tvErrorPrecio.setText("");
+        binding.tvErrorFoto.setText("");
     }
 
 }

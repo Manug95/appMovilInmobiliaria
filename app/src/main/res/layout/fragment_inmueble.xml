@@ -25,5 +25,7 @@
         android:contentDescription="@string/agregar_inmueble"
         app:srcCompat="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/purple_500"
+        app:tint="@color/white"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

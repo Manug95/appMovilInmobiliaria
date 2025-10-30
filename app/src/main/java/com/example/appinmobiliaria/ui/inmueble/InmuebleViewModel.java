@@ -19,6 +19,7 @@ import retrofit2.Response;
 
 public class InmuebleViewModel extends AndroidViewModel {
     private MutableLiveData<List<Inmueble>> mInmuebles;
+    private MutableLiveData<String> mErrorInmuebles;
 
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
@@ -30,6 +31,11 @@ public class InmuebleViewModel extends AndroidViewModel {
         return mInmuebles;
     }
 
+    public LiveData<String> getMErrorInmeubles() {
+        if (mErrorInmuebles == null) mErrorInmuebles = new MutableLiveData<>();
+        return mErrorInmuebles;
+    }
+
     public void getInmuebles() {
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
@@ -39,15 +45,23 @@ public class InmuebleViewModel extends AndroidViewModel {
         callGetInmuebles.enqueue(new Callback<List<Inmueble>>() {
             @Override
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
-                if (response.isSuccessful())
-                    mInmuebles.postValue(response.body());
-                else
-                    Toast.makeText(getApplication(), "No se pudieron cargar los inmuebles", Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+                    List<Inmueble> inmuebles = response.body();
+                    if (inmuebles != null && inmuebles.isEmpty())
+                        mErrorInmuebles.postValue("No tiene inmuebles registrados");
+                    else
+                        mInmuebles.postValue(response.body());
+                }
+                else {
+                    //Toast.makeText(getApplication(), "No se pudieron cargar los inmuebles", Toast.LENGTH_LONG).show();
+                    mErrorInmuebles.postValue("No se pudieron cargar los inmuebles");
+                }
             }
 
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable t) {
-                Toast.makeText(getApplication(), "Error al cargar los inmuebles", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplication(), "Error al cargar los inmuebles", Toast.LENGTH_LONG).show();
+                mErrorInmuebles.postValue("Error al cargar los inmuebles");
             }
         });
     }

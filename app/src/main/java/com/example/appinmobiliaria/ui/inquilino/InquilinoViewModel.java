@@ -1,6 +1,7 @@
 package com.example.appinmobiliaria.ui.inquilino;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -8,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.appinmobiliaria.modelos.Inmueble;
+import com.example.appinmobiliaria.modelos.Contrato;
 import com.example.appinmobiliaria.request.ApiClient;
 
 import java.util.List;
@@ -18,36 +19,51 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class InquilinoViewModel extends AndroidViewModel {
-    private MutableLiveData<List<Inmueble>> mInmuebles;
+    private MutableLiveData<List<Contrato>> mContratos;
+    private MutableLiveData<String> mErrorContratos;
 
     public InquilinoViewModel(@NonNull Application application) {
         super(application);
         getInmueblesAlquilados();
     }
 
-    public LiveData<List<Inmueble>> getMInmuebles() {
-        if (mInmuebles == null) mInmuebles = new MutableLiveData<>();
-        return mInmuebles;
+    public LiveData<List<Contrato>> getMContratos() {
+        if (mContratos == null) mContratos = new MutableLiveData<>();
+        return mContratos;
+    }
+
+    public LiveData<String> getMErrorContratos() {
+        if (mErrorContratos == null) mErrorContratos = new MutableLiveData<>();
+        return mErrorContratos;
     }
 
     public void getInmueblesAlquilados() {
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
 
-        Call<List<Inmueble>> callGetInmueblesAlquilados = api.getInmuebles(token);
+        Call<List<Contrato>> callGetInmueblesAlquilados = api.getContratosVigentes(token);
 
-        callGetInmueblesAlquilados.enqueue(new Callback<List<Inmueble>>() {
+        callGetInmueblesAlquilados.enqueue(new Callback<List<Contrato>>() {
             @Override
-            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
-                if (response.isSuccessful())
-                    mInmuebles.postValue(response.body());
-                else
-                    Toast.makeText(getApplication(), "No se pudieron cargar los inmuebles", Toast.LENGTH_LONG).show();
+            public void onResponse(Call<List<Contrato>> call, Response<List<Contrato>> response) {
+                if (response.isSuccessful()) {
+                    List<Contrato> contratos = response.body();
+                    if (contratos != null && contratos.isEmpty())
+                        mErrorContratos.postValue("No tiene inmuebles alquilados actualmente");
+                    else
+                        mContratos.postValue(contratos);
+                }
+                else {
+                    String mensaje = ApiClient.obtenerMensajeError(response.errorBody());
+                    //Toast.makeText(getApplication(), mensaje, Toast.LENGTH_LONG).show();
+                    mErrorContratos.postValue(mensaje);
+                }
             }
 
             @Override
-            public void onFailure(Call<List<Inmueble>> call, Throwable t) {
-                Toast.makeText(getApplication(), "Error al cargar los inmuebles", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<List<Contrato>> call, Throwable t) {
+                //Toast.makeText(getApplication(), "Error al cargar los inmuebles", Toast.LENGTH_LONG).show();
+                mErrorContratos.postValue("Error al cargar los inmuebles");
             }
         });
     }

@@ -1,9 +1,11 @@
 package com.example.appinmobiliaria.ui.inquilino;
 
+import androidx.annotation.ColorInt;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,15 +19,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.appinmobiliaria.R;
+import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
 import com.example.appinmobiliaria.databinding.FragmentInquilinoBinding;
-import com.example.appinmobiliaria.modelos.Inmueble;
-import com.example.appinmobiliaria.ui.inmueble.InmuebleAdapter;
+import com.example.appinmobiliaria.modelos.Contrato;
+import com.example.appinmobiliaria.ui.contrato.ContratoAdapter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
 public class InquilinoFragment extends Fragment {
     private FragmentInquilinoBinding binding;
     private InquilinoViewModel viewModel;
+    @ColorInt
+    private int COLOR_ERROR;
+    @ColorInt
+    private int COLOR_EXITO;
 
     public static InquilinoFragment newInstance() {
         return new InquilinoFragment();
@@ -38,19 +46,21 @@ public class InquilinoFragment extends Fragment {
     {
         binding = FragmentInquilinoBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(InquilinoViewModel.class);
+        COLOR_EXITO = getResources().getColor(R.color.success, null);
+        COLOR_ERROR = getResources().getColor(R.color.error, null);
 
-        viewModel.getMInmuebles().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
+        viewModel.getMContratos().observe(getViewLifecycleOwner(), new Observer<List<Contrato>>() {
             @Override
-            public void onChanged(List<Inmueble> inmuebles) {
+            public void onChanged(List<Contrato> contratos) {
                 //InmuebleAdapter adapter = new InmuebleAdapter(inmuebles, getContext(), getLayoutInflater());
-                InmuebleAdapter adapter = new InmuebleAdapter(inmuebles, getContext(), getLayoutInflater(), new InmuebleAdapter.OnItemClickListener() {
+                ContratoAdapter adapter = new ContratoAdapter(contratos, getContext(), getLayoutInflater(), new ContratoAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(Inmueble inmueble) {
+                    public void onItemClick(Contrato contrato) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("inmueble", inmueble);
+                        bundle.putSerializable("contrato", contrato);
                         Navigation
                                 .findNavController((Activity) getContext(), R.id.nav_host_fragment_content_main)
-                                .navigate(R.id.detalleInmuebleFragment, bundle);
+                                .navigate(R.id.detalleInquilinoFragment, bundle);
                     }
                 });
                 GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
@@ -59,7 +69,33 @@ public class InquilinoFragment extends Fragment {
             }
         });
 
+        viewModel.getMErrorContratos().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                muestraDialog(s, COLOR_ERROR);
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void muestraDialog(String mensaje, @ColorInt int colorDelMensaje){
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        DialogMensajePersonalizadoBinding dialogBinding = DialogMensajePersonalizadoBinding.inflate(inflater);
+
+        dialogBinding.tvMensajeDialog.setText(mensaje);
+        dialogBinding.tvMensajeDialog.setTextColor(colorDelMensaje);
+
+        new MaterialAlertDialogBuilder(getContext())
+            .setTitle(R.string.titulo_dialog_mensaje)
+            .setView(dialogBinding.getRoot())
+            .setNeutralButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface di,int i){
+                    di.dismiss();
+                }
+            })
+                .show();
     }
 
 }

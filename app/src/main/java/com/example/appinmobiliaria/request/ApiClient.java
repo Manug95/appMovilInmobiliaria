@@ -5,16 +5,19 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.appinmobiliaria.modelos.CambiarContrasenia;
+import com.example.appinmobiliaria.modelos.Contrato;
 import com.example.appinmobiliaria.modelos.EditarDisponible;
 import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.modelos.Login;
 import com.example.appinmobiliaria.modelos.Propietario;
 import com.example.appinmobiliaria.modelos.TipoInmueble;
+import com.example.appinmobiliaria.util.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -41,11 +44,14 @@ public class ApiClient {
     public static final String URL_BASE = "http://192.168.0.21:5113/";
 
     public static InmobiliariaService getInmobiliariaService() {
-        Gson gson = new GsonBuilder().setLenient().create();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL_BASE)
-                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
         return retrofit.create(InmobiliariaService.class);
     }
@@ -87,37 +93,6 @@ public class ApiClient {
     }
 
     public interface InmobiliariaService {
-        //endpoints de la API de prueba
-        @FormUrlEncoded
-        @POST("api/Propietarios/login")
-        Call<String> login(@Field("Usuario") String email, @Field("Clave")String password);
-
-        @GET("api/Propietarios")
-        Call<Propietario> getPerfil(@Header("Authorization") String token);
-
-        @PUT("api/Propietarios/actualizar")
-        Call<Propietario> actualizarPerfil(@Header("Authorization") String token, @Body Propietario propietario);
-
-        @FormUrlEncoded
-        @PUT("api/Propietarios/changePassword")
-        Call<String> cambiarContrasenia(@Header("Authorization") String token, @Field("currentPassword") String claveActual, @Field("newPassword") String claveNueva);
-
-        @GET("api/Inmuebles")
-        Call<List<Inmueble>> obtenerInmuebles(@Header("Authorization") String token);
-
-        /*@GET("api/Inmuebles/GetContratoVigente")
-        Call<List<Inmueble>> getInmueblesAlquilados(@Header("Authorization") String token);*/
-
-        @PUT("api/Inmuebles/actualizar")
-        Call<Inmueble> actualizarInmueble(@Header("Authorization") String token, @Body Inmueble inmueble);
-
-        @Multipart
-        @POST("api/Inmuebles/cargar")
-        Call<Inmueble> CargarInmueble(@Header("Authorization") String token,
-                                      @Part MultipartBody.Part imagen,
-                                      @Part("inmueble") RequestBody inmuebleBody);
-
-        //endpoints que va a tener mi API
         @POST("Propietario/login")
         Call<String> login(@Body Login login);
 
@@ -139,8 +114,6 @@ public class ApiClient {
         @PATCH("Inmueble/{id}/disponible")
         Call<Void> cambiarDisponible(@Header("Authorization") String token, @Path("id") int id, @Body EditarDisponible editarDisponible);
 
-        @POST("Inmueble")
-        Call<Inmueble> crearInmueble(@Header("Authorization") String token, @Body Inmueble inmueble);
         @Multipart
         @POST("Inmueble")
         Call<Inmueble> crearInmueble(@Header("Authorization") String token,
@@ -149,5 +122,8 @@ public class ApiClient {
 
         @GET("TipoInmueble")
         Call<List<TipoInmueble>> getTiposInmuebles(@Header("Authorization") String token);
+
+        @GET("Contrato/vigentes")
+        Call<List<Contrato>> getContratosVigentes(@Header("Authorization") String token);
     }
 }

@@ -31,8 +31,9 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:text="@string/nombre_y_apellido"
+        android:textAlignment="center"
         android:textColor="@color/purple_500"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -45,11 +46,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabelNombreYApellido" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelNombreYApellido"
+        tools:text="" />
 
     <TextView
         android:id="@+id/tvLabelDNI"
@@ -59,8 +62,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:text="@string/tv_dni"
+        android:textAlignment="center"
         android:textColor="@color/purple_500"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -73,11 +77,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabelDNI" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelDNI"
+        tools:text="" />
 
     <TextView
         android:id="@+id/tvLabelTelefono"
@@ -87,8 +93,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:text="@string/tv_telefono"
+        android:textAlignment="center"
         android:textColor="@color/purple_500"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -101,11 +108,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabelTelefono" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelTelefono"
+        tools:text="" />
 
     <TextView
         android:id="@+id/tvLabelEmailInquilino"
@@ -115,8 +124,9 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:text="@string/tv_email"
+        android:textAlignment="center"
         android:textColor="@color/purple_500"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -129,9 +139,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabelEmailInquilino" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLabelEmailInquilino"
+        tools:text="" />
 </androidx.constraintlayout.widget.ConstraintLayout>
