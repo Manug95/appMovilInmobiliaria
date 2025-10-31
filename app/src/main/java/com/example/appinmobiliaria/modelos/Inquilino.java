@@ -80,6 +80,10 @@ public class Inquilino {
         this.email = email;
     }
 
+    public String getNombreCompleto() {
+        return nombre + " " + apellido;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

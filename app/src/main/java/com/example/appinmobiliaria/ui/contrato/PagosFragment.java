@@ -20,22 +20,23 @@ import android.view.ViewGroup;
 
 import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
-import com.example.appinmobiliaria.databinding.FragmentContratoBinding;
+import com.example.appinmobiliaria.databinding.FragmentPagosBinding;
 import com.example.appinmobiliaria.modelos.Contrato;
+import com.example.appinmobiliaria.modelos.Pago;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
-public class ContratoFragment extends Fragment {
-    private FragmentContratoBinding binding;
-    private ContratoViewModel viewModel;
+public class PagosFragment extends Fragment {
+    private FragmentPagosBinding binding;
+    private PagosViewModel viewModel;
     @ColorInt
     private int COLOR_ERROR;
     @ColorInt
     private int COLOR_EXITO;
 
-    public static ContratoFragment newInstance() {
-        return new ContratoFragment();
+    public static PagosFragment newInstance() {
+        return new PagosFragment();
     }
 
     @Override
@@ -43,36 +44,29 @@ public class ContratoFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
-        binding = FragmentContratoBinding.inflate(inflater, container, false);
-        viewModel = new ViewModelProvider(this).get(ContratoViewModel.class);
+        binding = FragmentPagosBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(this).get(PagosViewModel.class);
         COLOR_EXITO = getResources().getColor(R.color.success, null);
         COLOR_ERROR = getResources().getColor(R.color.error, null);
 
-        viewModel.getMContratos().observe(getViewLifecycleOwner(), new Observer<List<Contrato>>() {
+        viewModel.getMPagos().observe(getViewLifecycleOwner(), new Observer<List<Pago>>() {
             @Override
-            public void onChanged(List<Contrato> contratos) {
-                ContratoAdapter adapter = new ContratoAdapter(contratos, getContext(), getLayoutInflater(), new ContratoAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Contrato contrato) {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("contrato", contrato);
-                        Navigation
-                                .findNavController((Activity) getContext(), R.id.nav_host_fragment_content_main)
-                                .navigate(R.id.detalleContratoFragment, bundle);
-                    }
-                });
-                GridLayoutManager glm = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-                binding.rvContratos.setLayoutManager(glm);
-                binding.rvContratos.setAdapter(adapter);
+            public void onChanged(List<Pago> pagos) {
+                PagoAdapter adapter = new PagoAdapter(pagos, getContext(), getLayoutInflater());
+                GridLayoutManager glm = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
+                binding.rvPagos.setLayoutManager(glm);
+                binding.rvPagos.setAdapter(adapter);
             }
         });
 
-        viewModel.getMErrorContratos().observe(getViewLifecycleOwner(), new Observer<String>() {
+        viewModel.getMErrorPagos().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 muestraDialog(s, COLOR_ERROR);
             }
         });
+
+        viewModel.traerPagos(getArguments());
 
         return binding.getRoot();
     }

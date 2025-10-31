@@ -78,8 +78,21 @@
     <string name="detalle_del_inmueble">Detalle del Inmueble</string>
     <string name="cargar_foto">Cargar Foto</string>
     <string name="foto_del_inmueble_a_registrar">Foto del Inmueble a registrar</string>
+    <string name="direccion_del_inmueble">Dirección del Inmueble</string>
 
     <!--inquilino-->
     <string name="inquilino">Inquilino</string>
     <string name="detalle_del_inquilino">Detalle del Inquilino</string>
+
+    <!--Contratos-->
+    <string name="detalle_contrato">Detalle Contrato</string>
+    <string name="monto_mensual">Monto Mensual</string>
+    <string name="fecha_de_inicio">Fecha de Inicio</string>
+    <string name="fecha_fin">Fecha Fin</string>
+    <string name="ver_pagos">Ver Pagos</string>
+    <string name="detalle_">Detalle :</string>
+    <string name="importe_">Importe :</string>
+    <string name="fecha_">Fecha :</string>
+    <string name="nro_pago_">Nro Pago :</string>
+    <string name="pagos">Pagos</string>
 </resources>

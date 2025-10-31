@@ -9,6 +9,7 @@ import com.example.appinmobiliaria.modelos.Contrato;
 import com.example.appinmobiliaria.modelos.EditarDisponible;
 import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.modelos.Login;
+import com.example.appinmobiliaria.modelos.Pago;
 import com.example.appinmobiliaria.modelos.Propietario;
 import com.example.appinmobiliaria.modelos.TipoInmueble;
 import com.example.appinmobiliaria.util.LocalDateAdapter;
@@ -38,6 +39,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class ApiClient {
     public static final String URL_BASE_PRUEBA = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
@@ -125,5 +127,8 @@ public class ApiClient {
 
         @GET("Contrato/vigentes")
         Call<List<Contrato>> getContratosVigentes(@Header("Authorization") String token);
+
+        @GET("Pago")
+        Call<List<Pago>> getPagos(@Header("Authorization") String token, @Query(("c")) int idContrato);
     }
 }

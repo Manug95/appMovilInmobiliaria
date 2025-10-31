@@ -196,9 +196,9 @@ public class Inmueble implements Serializable {
         return Objects.hashCode(id);
     }
 
-    /*public String getDireccion() {
+    public String getDireccion() {
         return calle + " " + nroCalle;
-    }*/
+    }
 
     public static ResultadoValidacion validarPrecio(String precioStr) {
         if (precioStr.isBlank()) {
