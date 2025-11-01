@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void solicitarPermisos(){
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M
-                && (checkSelfPermission(ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)  ||
-                (checkSelfPermission(ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED)){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                ((checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) ||
+                (checkSelfPermission(ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)))
+        {
             requestPermissions(new String[]{ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION},1000);
         }
-
     }
 }
