@@ -22,6 +22,7 @@ import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
 import com.example.appinmobiliaria.databinding.FragmentContratoBinding;
 import com.example.appinmobiliaria.modelos.Contrato;
+import com.example.appinmobiliaria.util.Dialogo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
@@ -45,8 +46,8 @@ public class ContratoFragment extends Fragment {
     {
         binding = FragmentContratoBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(ContratoViewModel.class);
-        COLOR_EXITO = getResources().getColor(R.color.success, null);
-        COLOR_ERROR = getResources().getColor(R.color.error, null);
+        //COLOR_EXITO = getResources().getColor(R.color.success, null);
+        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMContratos().observe(getViewLifecycleOwner(), new Observer<List<Contrato>>() {
             @Override
@@ -70,30 +71,16 @@ public class ContratoFragment extends Fragment {
         viewModel.getMErrorContratos().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                muestraDialog(s, COLOR_ERROR);
+                muestraDialog(s, false);
             }
         });
 
         return binding.getRoot();
     }
 
-    private void muestraDialog(String mensaje, @ColorInt int colorDelMensaje){
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        DialogMensajePersonalizadoBinding dialogBinding = DialogMensajePersonalizadoBinding.inflate(inflater);
-
-        dialogBinding.tvMensajeDialog.setText(mensaje);
-        dialogBinding.tvMensajeDialog.setTextColor(colorDelMensaje);
-
-        new MaterialAlertDialogBuilder(getContext())
-                .setTitle(R.string.titulo_dialog_mensaje)
-                .setView(dialogBinding.getRoot())
-                .setNeutralButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface di,int i){
-                        di.dismiss();
-                    }
-                })
-                .show();
+    private void muestraDialog(String mensaje, boolean exito){
+        Dialogo dialogo = new Dialogo(getContext(),getLayoutInflater());
+        dialogo.mostrarMensaje(mensaje, null, exito);
     }
 
 }

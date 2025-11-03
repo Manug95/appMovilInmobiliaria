@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.appinmobiliaria.BuildConfig;
 import com.example.appinmobiliaria.modelos.CambiarContrasenia;
 import com.example.appinmobiliaria.modelos.Contrato;
 import com.example.appinmobiliaria.modelos.EditarDisponible;
@@ -29,8 +30,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -42,8 +41,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public class ApiClient {
-    public static final String URL_BASE_PRUEBA = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
-    public static final String URL_BASE = "http://192.168.0.21:5113/";
+    public static final String URL_BASE_PRUEBA = BuildConfig.API_URL_BASE_PROFE;
+    public static final String URL_BASE = BuildConfig.API_URL_BASE;
 
     public static InmobiliariaService getInmobiliariaService() {
         Gson gson = new GsonBuilder()
@@ -83,10 +82,10 @@ public class ApiClient {
             String errorJson = responseBody.string();
             JSONObject errorObj = new JSONObject(errorJson);
             //Log.d("json", errorObj.toString());
-            if (errorObj.has("error")) {
-                mensajeError = errorObj.getString("error");
+            if (errorObj.has("mensaje")) {
+                mensajeError = errorObj.getString("mensaje");
             } else {
-                mensajeError = "no tiene el campo error";
+                mensajeError = "no hay mensaje explicativo reconocible";
             }
         } catch (Exception e) {
             mensajeError = "Error";
@@ -98,7 +97,7 @@ public class ApiClient {
         @POST("Propietario/login")
         Call<String> login(@Body Login login);
 
-        @PATCH("Propietario/cambiarContraseña")
+        @PATCH("Propietario/clave")
         Call<String> cambiarContrasenia(@Header("Authorization") String token, @Body CambiarContrasenia cambiarContrasenia);
 
         @GET("Propietario")

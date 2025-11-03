@@ -3,6 +3,7 @@ package com.example.appinmobiliaria.ui.logout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.example.appinmobiliaria.MainActivity;
 import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.request.ApiClient;
 import com.example.appinmobiliaria.ui.login.LoginActivity;
+import com.example.appinmobiliaria.util.Dialogo;
 
 public class LogoutFragment extends Fragment {
 
@@ -38,7 +40,19 @@ public class LogoutFragment extends Fragment {
     }
 
     private void muestraDialog(){
-        new AlertDialog.Builder(getContext())
+        Dialogo dialogo = new Dialogo(getContext(),getLayoutInflater());
+        dialogo.mostrarPregunta(R.string.pregunta_dialog_salir, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface di,int i){
+                ApiClient.borrarToken(getContext());
+                //getActivity().finish();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        },
+                null);
+        /*new AlertDialog.Builder(getContext())
                 .setTitle(R.string.titulo_dialog_salir)
                 .setMessage(R.string.pregunta_dialog_salir)
                 .setPositiveButton(R.string.dialog_si,new DialogInterface.OnClickListener(){
@@ -58,6 +72,7 @@ public class LogoutFragment extends Fragment {
                         //No hace nada
                     }
                 }).show();
+         */
     }
 
 }

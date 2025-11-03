@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
+import com.example.appinmobiliaria.util.Dialogo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.example.appinmobiliaria.R;
@@ -53,8 +54,8 @@ public class NuevoInmuebleFragment extends Fragment {
     {
         binding = FragmentNuevoInmuebleBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(NuevoInmuebleViewModel.class);
-        COLOR_EXITO = getResources().getColor(R.color.success, null);
-        COLOR_ERROR = getResources().getColor(R.color.error, null);
+        //COLOR_EXITO = getResources().getColor(R.color.success, null);
+        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMURIFoto().observe(getViewLifecycleOwner(), new Observer<Uri>() {
             @Override
@@ -66,14 +67,14 @@ public class NuevoInmuebleFragment extends Fragment {
         viewModel.getMMensajeExito().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                muestraDialog(s, COLOR_EXITO);
+                muestraDialog(s, true);
             }
         });
 
         viewModel.getMMensajeError().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                muestraDialog(s, COLOR_ERROR);
+                muestraDialog(s, false);
             }
         });
 
@@ -175,22 +176,9 @@ public class NuevoInmuebleFragment extends Fragment {
         });
     }
 
-    private void muestraDialog(String mensaje, @ColorInt int colorDelMensaje){
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        DialogMensajePersonalizadoBinding dialogBinding = DialogMensajePersonalizadoBinding.inflate(inflater);
-
-        dialogBinding.tvMensajeDialog.setText(mensaje);
-        dialogBinding.tvMensajeDialog.setTextColor(colorDelMensaje);
-
-        new MaterialAlertDialogBuilder(getContext())
-        .setTitle(R.string.titulo_dialog_mensaje)
-        .setView(dialogBinding.getRoot())
-        .setNeutralButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface di,int i){
-                di.dismiss();
-            }
-        }).show();
+    private void muestraDialog(String mensaje, boolean exito){
+        Dialogo dialogo = new Dialogo(getContext(),getLayoutInflater());
+        dialogo.mostrarMensaje(mensaje, null, exito);
     }
 
     private void limpiearMensajesdeError() {

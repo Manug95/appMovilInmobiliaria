@@ -1,5 +1,13 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
 }
 
 android {
@@ -14,6 +22,27 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "API_URL_BASE",
+            "\"${localProperties.getProperty("API_URL_BASE", "URL_POR_DEFECTO_SI_NO_EXISTE")}\""
+        )
+        buildConfigField(
+            "String",
+            "API_URL_BASE_PROFE",
+            "\"${localProperties.getProperty("API_URL_BASE_PROFE", "URL_POR_DEFECTO_SI_NO_EXISTE")}\""
+        )
+        buildConfigField(
+            "String",
+            "GOOGLE_MAPS_API_KEY",
+            "\"${localProperties.getProperty("GOOGLE_MAPS_API_KEY", "KEY_POR_DEFECTO")}\""
+        )
+        buildConfigField(
+            "String",
+            "TELEFONO",
+            "\"${localProperties.getProperty("TELEFONO", "URL_POR_DEFECTO_SI_NO_EXISTE")}\""
+        )
     }
 
     buildTypes {
@@ -31,6 +60,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

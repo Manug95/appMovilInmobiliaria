@@ -23,6 +23,7 @@ import com.example.appinmobiliaria.databinding.FragmentDetalleInmuebleBinding;
 import com.example.appinmobiliaria.databinding.FragmentInmuebleBinding;
 import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.request.ApiClient;
+import com.example.appinmobiliaria.util.Dialogo;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class DetalleInmuebleFragment extends Fragment {
@@ -45,8 +46,8 @@ public class DetalleInmuebleFragment extends Fragment {
     {
         binding = FragmentDetalleInmuebleBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(DetalleInmuebleViewModel.class);
-        COLOR_EXITO = getResources().getColor(R.color.success, null);
-        COLOR_ERROR = getResources().getColor(R.color.error, null);
+        //COLOR_EXITO = getResources().getColor(R.color.success, null);
+        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMInmueble().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
             @Override
@@ -54,6 +55,7 @@ public class DetalleInmuebleFragment extends Fragment {
                 String direccion = inmueble.getCalle() + " " + inmueble.getNroCalle();
                 binding.tvDireccion.setText(direccion);
                 binding.tvUso.setText(inmueble.getUso());
+                binding.tvTipoInmueble.setText(inmueble.getTipoInmueble());
                 binding.tvAmbientes.setText(String.valueOf(inmueble.getCantidadAmbientes()));
                 binding.tvLatitud.setText(String.valueOf(inmueble.getLatitud()));
                 binding.tvLongitud.setText(String.valueOf(inmueble.getLongitud()));
@@ -70,7 +72,7 @@ public class DetalleInmuebleFragment extends Fragment {
         viewModel.getMErroActualizacion().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                muestraDialog(s, COLOR_ERROR);
+                muestraDialog(s, false);
             }
         });
 
@@ -84,7 +86,7 @@ public class DetalleInmuebleFragment extends Fragment {
         viewModel.getMEXitoCambioDisponibilidad().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                muestraDialog(s, COLOR_EXITO);
+                muestraDialog(s, true);
             }
         });
 
@@ -106,22 +108,9 @@ public class DetalleInmuebleFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void muestraDialog(String mensaje, @ColorInt int colorDelMensaje){
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        DialogMensajePersonalizadoBinding dialogBinding = DialogMensajePersonalizadoBinding.inflate(inflater);
-
-        dialogBinding.tvMensajeDialog.setText(mensaje);
-        dialogBinding.tvMensajeDialog.setTextColor(colorDelMensaje);
-
-        new MaterialAlertDialogBuilder(getContext())
-        .setTitle(R.string.titulo_dialog_mensaje)
-        .setView(dialogBinding.getRoot())
-        .setNeutralButton(R.string.dialog_ok,new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface di,int i){
-                di.dismiss();
-            }
-        }).show();
+    private void muestraDialog(String mensaje, boolean exito){
+        Dialogo dialogo = new Dialogo(getContext(),getLayoutInflater());
+        dialogo.mostrarMensaje(mensaje, null, exito);
     }
 
 }

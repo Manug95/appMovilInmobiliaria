@@ -83,6 +83,7 @@
     <!--inquilino-->
     <string name="inquilino">Inquilino</string>
     <string name="detalle_del_inquilino">Detalle del Inquilino</string>
+    <string name="datos_del_inquilino">Datos del Inquilino</string>
 
     <!--Contratos-->
     <string name="detalle_contrato">Detalle Contrato</string>

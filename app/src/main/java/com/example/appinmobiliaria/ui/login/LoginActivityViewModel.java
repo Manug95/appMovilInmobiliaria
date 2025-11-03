@@ -45,7 +45,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
     public void login(String email, String password) {
         if (email.isEmpty() || password.isEmpty()) {
-            mLoginIncorrecto.setValue("Email o contraseña vacío(s)");
+            mLoginIncorrecto.setValue("El E-mail o la contraseña esta(n) vacío(s)");
             return;
         }
 
@@ -57,15 +57,15 @@ public class LoginActivityViewModel extends AndroidViewModel {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     ApiClient.guardarToken(getApplication(), response.body());
-                    mLoginCorrecto.setValue("¡Bienvenido!");
+                    mLoginCorrecto.setValue("¡Bienvenid@!");
                 } else {
-                    mLoginIncorrecto.setValue("Email o contraseña incorrecto(s)");
+                    mLoginIncorrecto.setValue(ApiClient.obtenerMensajeError(response.errorBody()));
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                mLoginIncorrecto.setValue("Error al hacer la petición");
+                mLoginIncorrecto.setValue("Ocurrió un error al hacer intentar iniciar sesión");
             }
         });
     }
@@ -132,7 +132,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
                 if (gForce > SHAKE_THRESHOLD_GRAVITY) {
                     final long now = System.currentTimeMillis();
-                    // Ignorar agitaciones demasiado seguidas
+                    // Para ignorar las agitaciones demasiado seguidas
                     if (mShakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
                         return;
                     }

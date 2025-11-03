@@ -45,7 +45,7 @@ public class HomeViewModel extends AndroidViewModel {
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(inmobiliaria)
-                    .zoom(20)
+                    .zoom(15)
                     .bearing(45)
                     .tilt(15)
                     .build();

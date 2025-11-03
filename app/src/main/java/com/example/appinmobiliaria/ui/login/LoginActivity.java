@@ -2,6 +2,7 @@ package com.example.appinmobiliaria.ui.login;
 
 import static android.Manifest.permission.CALL_PHONE;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.appinmobiliaria.BuildConfig;
 import com.example.appinmobiliaria.MainActivity;
 import com.example.appinmobiliaria.databinding.ActivityLoginBinding;
+import com.example.appinmobiliaria.util.Dialogo;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
@@ -76,26 +79,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogoDeLlamada() {
-        new AlertDialog.Builder(this)
-            .setTitle("Llamada de emergencia")
-            .setMessage("¿Desea llamar a la inmobiliaria?")
-            .setPositiveButton("Llamar", (dialog, which) -> {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + "2664553344"));
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                dialog.dismiss();
-                // Comprobar si tenemos permiso para llamar
-                /*if (checkSelfPermission(CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "2664553344"));
-                    startActivity(intent);
+        Dialogo dialogo = new Dialogo(this, getLayoutInflater());
+        dialogo.mostrarPregunta("¿Desea llamar a la inmobiliaria?", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (checkSelfPermission(CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    iniciarLlamada();
+                    dialog.dismiss();
                 } else {
-                    // Si no tenemos permiso, lo solicitamos. La llamada se hará en onRequestPermissionsResult
-                    requestPermissions(new String[]{CALL_PHONE}, 2000);
-                }*/
-            })
-            .setNegativeButton("Cancelar", null)
-            .show();
+                    solicitarPermisos();
+                }
+
+            }
+        }, null);
     }
 
     public void solicitarPermisos(){
@@ -123,17 +119,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 2000) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "2664553344"));
-                //startActivity(intent);
-                //Toast.makeText(this, "Permiso concedido. Realizando llamada...", Toast.LENGTH_SHORT).show();
+                iniciarLlamada();
             } else {
-                //Toast.makeText(this, "Permiso de llamada denegado.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "La app no tiene permisos para realizar llamadas.", Toast.LENGTH_LONG).show();
             }
         }
+    }*/
+
+    private void iniciarLlamada() {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:" + BuildConfig.TELEFONO));
+        startActivity(intent);
     }
 }
