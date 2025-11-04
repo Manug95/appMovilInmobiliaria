@@ -1,11 +1,9 @@
 package com.example.appinmobiliaria.ui.inmueble;
 
-import androidx.annotation.ColorInt;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,11 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.appinmobiliaria.R;
-import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
 import com.example.appinmobiliaria.databinding.FragmentInmuebleBinding;
 import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.util.Dialogo;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -31,10 +27,6 @@ public class InmuebleFragment extends Fragment {
 
     private InmuebleViewModel viewModel;
     private FragmentInmuebleBinding binding;
-    @ColorInt
-    private int COLOR_ERROR;
-    @ColorInt
-    private int COLOR_EXITO;
 
     public static InmuebleFragment newInstance() {
         return new InmuebleFragment();
@@ -47,13 +39,10 @@ public class InmuebleFragment extends Fragment {
     {
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(InmuebleViewModel.class);
-        //COLOR_EXITO = getResources().getColor(R.color.success, null);
-        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMInmuebles().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
             public void onChanged(List<Inmueble> inmuebles) {
-                //InmuebleAdapter adapter = new InmuebleAdapter(inmuebles, getContext(), getLayoutInflater());
                 InmuebleAdapter adapter = new InmuebleAdapter(inmuebles, getContext(), getLayoutInflater(), new InmuebleAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(Inmueble inmueble) {

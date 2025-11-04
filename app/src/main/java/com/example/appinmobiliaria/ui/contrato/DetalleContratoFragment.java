@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentDetalleContratoBinding;
 import com.example.appinmobiliaria.modelos.Contrato;
+import com.example.appinmobiliaria.util.Dialogo;
 
 import java.time.format.DateTimeFormatter;
 
@@ -52,6 +53,13 @@ public class DetalleContratoFragment extends Fragment {
             }
         });
 
+        viewModel.getMErrorContrato().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                muestraDialog(s, false);
+            }
+        });
+
         binding.btnVerPagos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +74,11 @@ public class DetalleContratoFragment extends Fragment {
         viewModel.recibirContrato(getArguments());
 
         return binding.getRoot();
+    }
+
+    private void muestraDialog(String mensaje, boolean exito){
+        Dialogo dialogo = new Dialogo(getContext(),getLayoutInflater());
+        dialogo.mostrarMensaje(mensaje, null, exito);
     }
 
 }

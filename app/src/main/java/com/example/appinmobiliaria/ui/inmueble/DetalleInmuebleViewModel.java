@@ -2,8 +2,6 @@ package com.example.appinmobiliaria.ui.inmueble;
 
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -69,21 +67,16 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     mExitoCambioDisponibilidad.postValue("Disponibilidad Actualizada");
-                    //Toast.makeText(getApplication(), "Disponibilidad Actualizada", Toast.LENGTH_SHORT).show();
                 } else {
                     mErrorActualizacion.postValue(ApiClient.obtenerMensajeError(response.errorBody()));
                     mEstadoDisponible.postValue(!estado);
-                    //Toast.makeText(getApplication(), "No se pudo actualizar la disponibilidad", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 mErrorActualizacion.postValue("Error al actualizar la disponibilidad");
-                //mErrorActualizacion.postValue(t.getMessage());
-                Log.d("asd", t.getLocalizedMessage());
                 mEstadoDisponible.postValue(!estado);
-                //Toast.makeText(getApplication(), "Error al actualizar la disponibilidad", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -30,10 +30,6 @@ import java.util.List;
 public class ContratoFragment extends Fragment {
     private FragmentContratoBinding binding;
     private ContratoViewModel viewModel;
-    @ColorInt
-    private int COLOR_ERROR;
-    @ColorInt
-    private int COLOR_EXITO;
 
     public static ContratoFragment newInstance() {
         return new ContratoFragment();
@@ -46,8 +42,6 @@ public class ContratoFragment extends Fragment {
     {
         binding = FragmentContratoBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(ContratoViewModel.class);
-        //COLOR_EXITO = getResources().getColor(R.color.success, null);
-        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMContratos().observe(getViewLifecycleOwner(), new Observer<List<Contrato>>() {
             @Override

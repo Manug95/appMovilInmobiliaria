@@ -2,7 +2,6 @@ package com.example.appinmobiliaria.ui.inquilino;
 
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,7 +9,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appinmobiliaria.modelos.Contrato;
-import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.modelos.Inquilino;
 
 public class DetalleInquilinoViewModel extends AndroidViewModel {

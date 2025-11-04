@@ -15,7 +15,6 @@ import com.example.appinmobiliaria.databinding.ItemInmuebleBinding;
 import com.example.appinmobiliaria.modelos.Contrato;
 import com.example.appinmobiliaria.modelos.Inmueble;
 import com.example.appinmobiliaria.request.ApiClient;
-import com.example.appinmobiliaria.ui.inmueble.InmuebleAdapter;
 
 import java.util.List;
 
@@ -80,16 +79,6 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.Contra
                     .error(R.drawable.ic_launcher_foreground)
                     .into(binding.ivFotoInmueble);
 
-            /*binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("inmueble", inmueble);
-                    Navigation
-                            .findNavController((Activity) v.getContext(), R.id.nav_host_fragment_content_main)
-                            .navigate(R.id.detalleInmuebleFragment, bundle);
-                }
-            });*/
             binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

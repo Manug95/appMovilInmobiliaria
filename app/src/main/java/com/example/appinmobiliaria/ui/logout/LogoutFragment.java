@@ -40,39 +40,17 @@ public class LogoutFragment extends Fragment {
     }
 
     private void muestraDialog(){
-        Dialogo dialogo = new Dialogo(getContext(),getLayoutInflater());
+        Dialogo dialogo = new Dialogo(getContext(), getLayoutInflater());
         dialogo.mostrarPregunta(R.string.pregunta_dialog_salir, new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface di,int i){
                 ApiClient.borrarToken(getContext());
-                //getActivity().finish();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                getActivity().finish();
             }
-        },
-                null);
-        /*new AlertDialog.Builder(getContext())
-                .setTitle(R.string.titulo_dialog_salir)
-                .setMessage(R.string.pregunta_dialog_salir)
-                .setPositiveButton(R.string.dialog_si,new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface di,int i){
-                        ApiClient.borrarToken(getContext());
-                        //getActivity().finish();
-                        Intent intent = new Intent(getContext(), LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                })
-
-                .setNegativeButton(R.string.dialog_no,new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface di,int i){
-                        //No hace nada
-                    }
-                }).show();
-         */
+        }, null);
     }
 
 }

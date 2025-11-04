@@ -1,8 +1,6 @@
 package com.example.appinmobiliaria.ui.inquilino;
 
 import android.app.Application;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -55,14 +53,12 @@ public class InquilinoViewModel extends AndroidViewModel {
                 }
                 else {
                     String mensaje = ApiClient.obtenerMensajeError(response.errorBody());
-                    //Toast.makeText(getApplication(), mensaje, Toast.LENGTH_LONG).show();
                     mErrorContratos.postValue(mensaje);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Contrato>> call, Throwable t) {
-                //Toast.makeText(getApplication(), "Error al cargar los inmuebles", Toast.LENGTH_LONG).show();
                 mErrorContratos.postValue("Error al cargar los inmuebles");
             }
         });

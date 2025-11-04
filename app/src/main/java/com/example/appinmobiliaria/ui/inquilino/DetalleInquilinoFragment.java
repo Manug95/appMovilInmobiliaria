@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentDetalleInquilinoBinding;
 import com.example.appinmobiliaria.modelos.Inquilino;
 

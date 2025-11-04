@@ -1,7 +1,6 @@
 package com.example.appinmobiliaria.ui.inmueble;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -23,7 +22,6 @@ public class InmuebleViewModel extends AndroidViewModel {
 
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
-        //getInmuebles();
     }
 
     public LiveData<List<Inmueble>> getMInmuebles() {
@@ -53,14 +51,12 @@ public class InmuebleViewModel extends AndroidViewModel {
                         mInmuebles.postValue(response.body());
                 }
                 else {
-                    //Toast.makeText(getApplication(), "No se pudieron cargar los inmuebles", Toast.LENGTH_LONG).show();
-                    mErrorInmuebles.postValue("No se pudieron cargar los inmuebles");
+                    mErrorInmuebles.postValue(ApiClient.obtenerMensajeError(response.errorBody()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable t) {
-                //Toast.makeText(getApplication(), "Error al cargar los inmuebles", Toast.LENGTH_LONG).show();
                 mErrorInmuebles.postValue("Error al cargar los inmuebles");
             }
         });

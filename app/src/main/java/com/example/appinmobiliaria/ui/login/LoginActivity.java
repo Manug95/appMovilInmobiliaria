@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(String s) {
                 iniciarMainActivity();
                 Toast.makeText(getApplication(), s, Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 
@@ -56,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean aBoolean) {
                 iniciarMainActivity();
+                finish();
             }
         });
 
@@ -118,18 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.desactivarSensor();
         super.onPause();
     }
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 2000) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                iniciarLlamada();
-            } else {
-                Toast.makeText(this, "La app no tiene permisos para realizar llamadas.", Toast.LENGTH_LONG).show();
-            }
-        }
-    }*/
 
     private void iniciarLlamada() {
         Intent intent = new Intent(Intent.ACTION_CALL);

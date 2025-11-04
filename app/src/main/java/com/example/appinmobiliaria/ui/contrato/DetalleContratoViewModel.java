@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appinmobiliaria.modelos.Contrato;
 
+import java.io.Serializable;
+
 public class DetalleContratoViewModel extends AndroidViewModel {
     private MutableLiveData<Contrato> mContrato;
     private MutableLiveData<String> mErrorContrato;
@@ -20,8 +22,15 @@ public class DetalleContratoViewModel extends AndroidViewModel {
 
     public void recibirContrato(Bundle bundle) {
         if (bundle != null) {
-            Contrato contrato = (Contrato) bundle.getSerializable("contrato");
-            mContrato.postValue(contrato);
+            Serializable serializable = bundle.getSerializable("contrato");
+            if (serializable != null) {
+                Contrato contrato = (Contrato) serializable;
+                mContrato.postValue(contrato);
+            } else {
+                mErrorContrato.postValue("No se pudo recuperar el contrato");
+            }
+        } else {
+            mErrorContrato.postValue("No se pudo recuperar el contrato");
         }
     }
 

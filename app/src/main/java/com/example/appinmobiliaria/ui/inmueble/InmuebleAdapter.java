@@ -1,15 +1,12 @@
 package com.example.appinmobiliaria.ui.inmueble;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -80,16 +77,6 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.Inmueb
                     .error(R.drawable.ic_launcher_foreground)
                     .into(binding.ivFotoInmueble);
 
-            /*binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("inmueble", inmueble);
-                    Navigation
-                            .findNavController((Activity) v.getContext(), R.id.nav_host_fragment_content_main)
-                            .navigate(R.id.detalleInmuebleFragment, bundle);
-                }
-            });*/
             binding.itemInmueble.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

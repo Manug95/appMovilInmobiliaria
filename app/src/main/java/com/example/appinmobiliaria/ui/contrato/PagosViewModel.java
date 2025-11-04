@@ -26,10 +26,6 @@ public class PagosViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void recuperarContrato(Bundle bundle) {
-
-    }
-
     public void traerPagos(Bundle bundle) {
         if (bundle == null) {
             mErrorPagos.setValue("No se puede recueperar los pagos del contrato");
@@ -58,14 +54,12 @@ public class PagosViewModel extends AndroidViewModel {
                 }
                 else {
                     String mensaje = ApiClient.obtenerMensajeError(response.errorBody());
-                    //Toast.makeText(getApplication(), mensaje, Toast.LENGTH_LONG).show();
                     mErrorPagos.postValue(mensaje);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Pago>> call, Throwable t) {
-                //Toast.makeText(getApplication(), "Error al cargar los contratos", Toast.LENGTH_LONG).show();
                 mErrorPagos.postValue("Error al cargar los pagos");
             }
         });

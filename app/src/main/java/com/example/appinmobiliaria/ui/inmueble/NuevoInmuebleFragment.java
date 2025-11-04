@@ -4,11 +4,9 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.ColorInt;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,11 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
 import com.example.appinmobiliaria.util.Dialogo;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentNuevoInmuebleBinding;
 import com.example.appinmobiliaria.modelos.TipoInmueble;
 
@@ -36,10 +31,6 @@ import java.util.List;
 public class NuevoInmuebleFragment extends Fragment {
     private FragmentNuevoInmuebleBinding binding;
     private NuevoInmuebleViewModel viewModel;
-    @ColorInt
-    private int COLOR_ERROR;
-    @ColorInt
-    private int COLOR_EXITO;
     private ActivityResultLauncher<Intent> arl;
     private Intent intentActivityGaleriaFotos;
 
@@ -54,8 +45,6 @@ public class NuevoInmuebleFragment extends Fragment {
     {
         binding = FragmentNuevoInmuebleBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(NuevoInmuebleViewModel.class);
-        //COLOR_EXITO = getResources().getColor(R.color.success, null);
-        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMURIFoto().observe(getViewLifecycleOwner(), new Observer<Uri>() {
             @Override

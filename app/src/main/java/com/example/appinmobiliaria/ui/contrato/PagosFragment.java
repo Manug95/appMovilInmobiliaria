@@ -1,40 +1,28 @@
 package com.example.appinmobiliaria.ui.contrato;
 
-import androidx.annotation.ColorInt;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.appinmobiliaria.R;
-import com.example.appinmobiliaria.databinding.DialogMensajePersonalizadoBinding;
 import com.example.appinmobiliaria.databinding.FragmentPagosBinding;
-import com.example.appinmobiliaria.modelos.Contrato;
 import com.example.appinmobiliaria.modelos.Pago;
 import com.example.appinmobiliaria.util.Dialogo;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
 public class PagosFragment extends Fragment {
     private FragmentPagosBinding binding;
     private PagosViewModel viewModel;
-    @ColorInt
-    private int COLOR_ERROR;
-    @ColorInt
-    private int COLOR_EXITO;
 
     public static PagosFragment newInstance() {
         return new PagosFragment();
@@ -47,8 +35,6 @@ public class PagosFragment extends Fragment {
     {
         binding = FragmentPagosBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(PagosViewModel.class);
-        //COLOR_EXITO = getResources().getColor(R.color.success, null);
-        //COLOR_ERROR = getResources().getColor(R.color.error, null);
 
         viewModel.getMPagos().observe(getViewLifecycleOwner(), new Observer<List<Pago>>() {
             @Override

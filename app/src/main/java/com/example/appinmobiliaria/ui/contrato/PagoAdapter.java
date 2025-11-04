@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appinmobiliaria.databinding.ItemPagoBinding;
 import com.example.appinmobiliaria.modelos.Pago;
 
-import java.text.DateFormat;
 import java.util.List;
 
 import java.time.format.DateTimeFormatter;

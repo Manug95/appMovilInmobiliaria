@@ -43,6 +43,8 @@ android {
             "TELEFONO",
             "\"${localProperties.getProperty("TELEFONO", "URL_POR_DEFECTO_SI_NO_EXISTE")}\""
         )
+
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = localProperties.getProperty("GOOGLE_MAPS_API_KEY", "KEY_POR_DEFECTO")
     }
 
     buildTypes {
