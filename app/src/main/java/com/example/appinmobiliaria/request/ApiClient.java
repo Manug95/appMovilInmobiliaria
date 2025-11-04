@@ -128,6 +128,6 @@ public class ApiClient {
         Call<List<Contrato>> getContratosVigentes(@Header("Authorization") String token);
 
         @GET("Pago")
-        Call<List<Pago>> getPagos(@Header("Authorization") String token, @Query(("c")) int idContrato);
+        Call<List<Pago>> getPagos(@Header("Authorization") String token, @Query(("c")) int idContrato, @Query("offset") int offset);
     }
 }

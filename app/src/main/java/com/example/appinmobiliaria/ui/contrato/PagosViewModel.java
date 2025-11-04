@@ -19,7 +19,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PagosViewModel extends AndroidViewModel {
+    private int idContrato;
     private MutableLiveData<List<Pago>> mPagos;
+    private MutableLiveData<List<Pago>> mNuevosPagos;
     private MutableLiveData<String> mErrorPagos;
 
     public PagosViewModel(@NonNull Application application) {
@@ -27,30 +29,42 @@ public class PagosViewModel extends AndroidViewModel {
     }
 
     public void traerPagos(Bundle bundle) {
-        if (bundle == null) {
+        if (bundle == null)
             mErrorPagos.setValue("No se puede recueperar los pagos del contrato");
-        }
 
         Contrato contrato = (Contrato) bundle.getSerializable("contrato");
 
-        if (contrato == null) {
+        if (contrato == null)
             mErrorPagos.setValue("No se puede recueperar los pagos del contrato");
-        }
 
+        idContrato = contrato.getId();
+        hacerPeticion(idContrato, 1);
+    }
+
+    public void traerNuevosPagos(int pagina) {
+        hacerPeticion(idContrato, pagina);
+    }
+
+    private void hacerPeticion(int id, int offset) {
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
 
-        Call<List<Pago>> callGetPagos = api.getPagos(token, contrato.getId());
+        Call<List<Pago>> callGetPagos = api.getPagos(token, id, offset);
 
         callGetPagos.enqueue(new Callback<List<Pago>>() {
             @Override
             public void onResponse(Call<List<Pago>> call, Response<List<Pago>> response) {
                 if (response.isSuccessful()) {
                     List<Pago> pagos = response.body();
-                    if (pagos != null && pagos.isEmpty())
+                    if (pagos != null && pagos.isEmpty() && offset == 1)
                         mErrorPagos.postValue("El contrato no tiene pagos");
-                    else
-                        mPagos.postValue(pagos);
+                    else {
+                        if (offset > 1) {
+                            mNuevosPagos.postValue(pagos);
+                        } else {
+                            mPagos.postValue(pagos);
+                        }
+                    }
                 }
                 else {
                     String mensaje = ApiClient.obtenerMensajeError(response.errorBody());
@@ -77,5 +91,12 @@ public class PagosViewModel extends AndroidViewModel {
             mErrorPagos = new MutableLiveData<>();
         }
         return mErrorPagos;
+    }
+
+    public LiveData<List<Pago>> getMNuevosPagos() {
+        if (mNuevosPagos == null) {
+            mNuevosPagos = new MutableLiveData<>();
+        }
+        return mNuevosPagos;
     }
 }

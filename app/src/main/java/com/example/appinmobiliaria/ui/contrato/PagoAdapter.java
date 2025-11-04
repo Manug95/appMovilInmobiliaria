@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appinmobiliaria.databinding.ItemPagoBinding;
 import com.example.appinmobiliaria.modelos.Pago;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.time.format.DateTimeFormatter;
@@ -41,6 +42,17 @@ public class PagoAdapter extends RecyclerView.Adapter<PagoAdapter.PagoViewHolder
     @Override
     public int getItemCount() {
         return listaPagos.size();
+    }
+
+    public void agregarDatos(List<Pago> nuevosDatos) {
+        int posicionInicial = listaPagos.size();
+        listaPagos.addAll(nuevosDatos);
+        notifyItemRangeInserted(posicionInicial, nuevosDatos.size());
+    }
+
+    public void setDatos(List<Pago> pagos) {
+        this.listaPagos = pagos;
+        notifyDataSetChanged();
     }
 
     public class  PagoViewHolder extends RecyclerView.ViewHolder {
