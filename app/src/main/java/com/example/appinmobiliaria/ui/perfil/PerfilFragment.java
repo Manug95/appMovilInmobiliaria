@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentPerfilBinding;
 import com.example.appinmobiliaria.modelos.Propietario;
+import com.example.appinmobiliaria.util.Dialogo;
 
 public class PerfilFragment extends Fragment {
     private PerfilViewModel viewModel;
@@ -33,8 +34,6 @@ public class PerfilFragment extends Fragment {
     {
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
-
-        //resetearMensajeErrorGlobal();
 
         viewModel.getMPropietario().observe(getViewLifecycleOwner(), new Observer<Propietario>() {
             @Override
@@ -68,7 +67,14 @@ public class PerfilFragment extends Fragment {
         viewModel.getMMensajeError().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                binding.tvMensajeError.setText(s);
+                muestraDialog(s, false);
+            }
+        });
+
+        viewModel.getMPerfilActualizado().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                muestraDialog(s, true);
             }
         });
 
@@ -149,12 +155,12 @@ public class PerfilFragment extends Fragment {
         binding = null;
     }
 
-    private void resetearMensajeErrorGlobal() {
-        binding.tvMensajeError.setText("");
+    private void muestraDialog(String mensaje, boolean exito){
+        Dialogo dialogo = new Dialogo(getContext(), getLayoutInflater());
+        dialogo.mostrarMensaje(mensaje, null, exito);
     }
 
     private void resetearMensajesError() {
-        resetearMensajeErrorGlobal();
         binding.tvErrorDni.setText("");
         binding.tvErrorNombre.setText("");
         binding.tvErrorApellido.setText("");

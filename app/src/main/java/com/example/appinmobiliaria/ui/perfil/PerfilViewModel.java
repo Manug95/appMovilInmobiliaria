@@ -1,7 +1,6 @@
 package com.example.appinmobiliaria.ui.perfil;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -29,6 +28,7 @@ public class PerfilViewModel extends AndroidViewModel {
     private final MutableLiveData<String> mErrorEmail = new MutableLiveData<>();
     private final MutableLiveData<String> mErrorTelefono = new MutableLiveData<>();
     private final MutableLiveData<String> mMensajeError = new MutableLiveData<>();
+    private final MutableLiveData<String> mPerfilActualizado = new MutableLiveData<>();
 
     public PerfilViewModel(@NonNull Application application) {
         super(application);
@@ -72,6 +72,10 @@ public class PerfilViewModel extends AndroidViewModel {
         return mMensajeError;
     }
 
+    public LiveData<String> getMPerfilActualizado() {
+        return mPerfilActualizado;
+    }
+
     public void editarPropietario(String btnText, String nombre, String apelldio, String dni, String telefono, String email) {
         if (btnText.equals(EDITAR)) {
             cambiarAModoGuardar();
@@ -98,8 +102,7 @@ public class PerfilViewModel extends AndroidViewModel {
                 if (response.isSuccessful()) {
                     mPropietario.postValue(response.body());
                 } else {
-                    mMensajeError.postValue("No se encontraron los datos del propietario");
-                    Toast.makeText(getApplication(), "Error al obtener el propietario", Toast.LENGTH_LONG).show();
+                    mMensajeError.postValue(ApiClient.obtenerMensajeError(response.errorBody()));
                 }
             }
 
@@ -120,10 +123,10 @@ public class PerfilViewModel extends AndroidViewModel {
             @Override
             public void onResponse(@NonNull Call<Propietario> call, @NonNull Response<Propietario> response) {
                 if (response.isSuccessful()) {
-                    mPropietario.postValue(response.body()); //esto en el caso que el actualizar devuelva el propetario actualizado
+                    mPropietario.postValue(response.body());
+                    mPerfilActualizado.postValue("Perfil Actualizado");
                 } else {
-                    mMensajeError.postValue("Error al actualizar el propietario");
-                    Toast.makeText(getApplication(), "Error al actualizar el propietario", Toast.LENGTH_LONG).show();
+                    mMensajeError.postValue(ApiClient.obtenerMensajeError(response.errorBody()));
                 }
             }
 

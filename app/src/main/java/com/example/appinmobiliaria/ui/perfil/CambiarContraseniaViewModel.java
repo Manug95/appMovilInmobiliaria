@@ -61,7 +61,7 @@ public class CambiarContraseniaViewModel extends AndroidViewModel {
                 if (response.isSuccessful()) {
                     mContraseniaCambiada.postValue("Contraseña Cambiada");
                 } else {
-                    mErrorCambiarContrasenia.postValue("No se pudo Cambiar la contraseña");
+                    mErrorCambiarContrasenia.postValue(ApiClient.obtenerMensajeError(response.errorBody()));
                 }
             }
 
