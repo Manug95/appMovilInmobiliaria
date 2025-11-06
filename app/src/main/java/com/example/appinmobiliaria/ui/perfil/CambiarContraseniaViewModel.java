@@ -53,11 +53,11 @@ public class CambiarContraseniaViewModel extends AndroidViewModel {
         String token = ApiClient.leerToken(getApplication());
         ApiClient.InmobiliariaService api = ApiClient.getInmobiliariaService();
 
-        Call<String> callCambiarContrasenia = api.cambiarContrasenia(token, new CambiarContrasenia(contraseniaActual, nuevaContrasenia));
+        Call<Void> callCambiarContrasenia = api.cambiarContrasenia(token, new CambiarContrasenia(contraseniaActual, nuevaContrasenia));
 
-        callCambiarContrasenia.enqueue(new Callback<String>() {
+        callCambiarContrasenia.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     mContraseniaCambiada.postValue("Contraseña Cambiada");
                 } else {
@@ -66,7 +66,7 @@ public class CambiarContraseniaViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 mErrorCambiarContrasenia.postValue("Error al cambiar la contraseña");
             }
         });

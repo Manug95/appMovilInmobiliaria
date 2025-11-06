@@ -1,6 +1,5 @@
 package com.example.appinmobiliaria.ui.perfil;
 
-import androidx.annotation.ColorInt;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,14 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.appinmobiliaria.R;
 import com.example.appinmobiliaria.databinding.FragmentCambiarContraseniaBinding;
+import com.example.appinmobiliaria.util.Dialogo;
 
 public class CambiarContraseniaFragment extends Fragment {
-    @ColorInt
-    private int COLOR_ERROR;
-    @ColorInt
-    private int COLOR_EXITO;
     private CambiarContraseniaViewModel viewModel;
     private FragmentCambiarContraseniaBinding binding;
 
@@ -34,24 +29,20 @@ public class CambiarContraseniaFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
-        COLOR_EXITO = getResources().getColor(R.color.success, null);
-        COLOR_ERROR = getResources().getColor(R.color.error, null);
         binding = FragmentCambiarContraseniaBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(CambiarContraseniaViewModel.class);
 
         viewModel.getMContraseniaCambiada().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                binding.tvMensajeRespuesta.setText(s);
-                binding.tvMensajeRespuesta.setTextColor(COLOR_EXITO);
+                muestraDialog(s, true);
             }
         });
 
         viewModel.getMErrorCambiarContrasenia().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                binding.tvMensajeRespuesta.setText(s);
-                binding.tvMensajeRespuesta.setTextColor(COLOR_ERROR);
+                muestraDialog(s, false);
             }
         });
 
@@ -59,7 +50,6 @@ public class CambiarContraseniaFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 binding.tvErrorContraseniaNueva.setText(s);
-                binding.tvErrorContraseniaNueva.setTextColor(COLOR_ERROR);
             }
         });
 
@@ -67,7 +57,6 @@ public class CambiarContraseniaFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 binding.tvErrorContraseniaActual.setText(s);
-                binding.tvErrorContraseniaActual.setTextColor(COLOR_ERROR);
             }
         });
 
@@ -75,7 +64,6 @@ public class CambiarContraseniaFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 binding.tvErrorContraseniaNuevaRepetida.setText(s);
-                binding.tvErrorContraseniaNuevaRepetida.setTextColor(COLOR_ERROR);
             }
         });
 
@@ -95,11 +83,15 @@ public class CambiarContraseniaFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void muestraDialog(String mensaje, boolean exito){
+        Dialogo dialogo = new Dialogo(getContext(), getLayoutInflater());
+        dialogo.mostrarMensaje(mensaje, null, exito);
+    }
+
     private void resetearMensajesError() {
         binding.tvErrorContraseniaActual.setText("");
         binding.tvErrorContraseniaNueva.setText("");
         binding.tvErrorContraseniaNuevaRepetida.setText("");
-        binding.tvMensajeRespuesta.setText("");
     }
 
 }

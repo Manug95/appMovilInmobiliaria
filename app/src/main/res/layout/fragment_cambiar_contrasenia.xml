@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:text="@string/cambiar_contrasenia"
         android:textAlignment="center"
@@ -24,35 +24,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvMensajeRespuesta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textColor="@color/design_default_color_error"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloCambiarContrasenia" />
-
-    <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/contrasenia_actual"
         android:labelFor="@+id/etContraseniaActual"
+        android:text="@string/contrasenia_actual"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMensajeRespuesta" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloCambiarContrasenia" />
 
     <EditText
         android:id="@+id/etContraseniaActual"
@@ -83,10 +69,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/nueva_contrasenia"
         android:labelFor="@+id/etNuevaContrasenia"
+        android:text="@string/nueva_contrasenia"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -124,10 +110,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/repetir_nueva_contrasenia"
         android:labelFor="@+id/etNuevaContraseniaRepetida"
+        android:text="@string/repetir_nueva_contrasenia"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -167,7 +153,8 @@
         android:text="@string/cambiar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorContraseniaNuevaRepetida"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintVertical_bias="0.246" />
 </androidx.constraintlayout.widget.ConstraintLayout>

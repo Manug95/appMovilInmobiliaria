@@ -98,7 +98,7 @@ public class ApiClient {
         Call<String> login(@Body Login login);
 
         @PATCH("Propietario/clave")
-        Call<String> cambiarContrasenia(@Header("Authorization") String token, @Body CambiarContrasenia cambiarContrasenia);
+        Call<Void> cambiarContrasenia(@Header("Authorization") String token, @Body CambiarContrasenia cambiarContrasenia);
 
         @GET("Propietario")
         Call<Propietario> getPropietario(@Header("Authorization") String token);
