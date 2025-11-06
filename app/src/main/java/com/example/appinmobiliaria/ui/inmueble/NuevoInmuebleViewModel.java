@@ -62,7 +62,7 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
                 tipoInmueble,
                 uso,
                 Double.parseDouble(precio),
-                true
+                false
         );
         int idTipoInmueble = getIdTipoInmueble(tipoInmueble);
         if (idTipoInmueble > 0)

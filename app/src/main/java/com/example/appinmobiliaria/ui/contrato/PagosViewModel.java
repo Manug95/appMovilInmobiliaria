@@ -21,8 +21,10 @@ import retrofit2.Response;
 public class PagosViewModel extends AndroidViewModel {
     private int idContrato;
     private MutableLiveData<List<Pago>> mPagos;
-    private MutableLiveData<List<Pago>> mNuevosPagos;
+    private MutableLiveData<List<Pago>> mScrollInfinito;
     private MutableLiveData<String> mErrorPagos;
+    private MutableLiveData<Void> mFiltroScrollInfinito;
+    private MutableLiveData<Void> mCondicionScrollInfinito;
 
     public PagosViewModel(@NonNull Application application) {
         super(application);
@@ -41,7 +43,7 @@ public class PagosViewModel extends AndroidViewModel {
         hacerPeticion(idContrato, 1);
     }
 
-    public void traerNuevosPagos(int pagina) {
+    public void traerMasPagos(int pagina) {
         hacerPeticion(idContrato, pagina);
     }
 
@@ -56,7 +58,7 @@ public class PagosViewModel extends AndroidViewModel {
             public void onResponse(Call<List<Pago>> call, Response<List<Pago>> response) {
                 if (response.isSuccessful()) {
                     List<Pago> pagos = response.body();
-                    if (pagos != null && pagos.isEmpty() && offset == 1)
+                    /*if (pagos != null && pagos.isEmpty() && offset == 1)
                         mErrorPagos.postValue("El contrato no tiene pagos");
                     else {
                         if (offset > 1) {
@@ -64,6 +66,16 @@ public class PagosViewModel extends AndroidViewModel {
                         } else {
                             mPagos.postValue(pagos);
                         }
+                    }*/
+
+                    if (pagos != null && pagos.isEmpty()) {
+                        if (offset == 1)
+                            mErrorPagos.postValue("El contrato no tiene pagos");
+                    } else {
+                        if (offset == 1)
+                            mPagos.postValue(pagos);
+                        else
+                            mScrollInfinito.postValue(pagos);
                     }
                 }
                 else {
@@ -77,6 +89,18 @@ public class PagosViewModel extends AndroidViewModel {
                 mErrorPagos.postValue("Error al cargar los pagos");
             }
         });
+    }
+
+    public void filtroScrollInfinito(int dy, boolean estaCargandoPagos, boolean noHayMasPagos) {
+        if (dy <= 0) return;
+        if (estaCargandoPagos || noHayMasPagos) return;
+        mFiltroScrollInfinito.postValue(null);
+    }
+
+    public void condicionScrollInfinito(int cantidadItemsVisibles, int totalItems, int posicionPrimerItemVisible) {
+        if ((cantidadItemsVisibles + posicionPrimerItemVisible) >= totalItems && posicionPrimerItemVisible >= 0) {
+            mCondicionScrollInfinito.setValue(null);
+        }
     }
 
     public LiveData<List<Pago>> getMPagos() {
@@ -93,10 +117,24 @@ public class PagosViewModel extends AndroidViewModel {
         return mErrorPagos;
     }
 
-    public LiveData<List<Pago>> getMNuevosPagos() {
-        if (mNuevosPagos == null) {
-            mNuevosPagos = new MutableLiveData<>();
+    public LiveData<List<Pago>> getMScrollInfinito() {
+        if (mScrollInfinito == null) {
+            mScrollInfinito = new MutableLiveData<>();
         }
-        return mNuevosPagos;
+        return mScrollInfinito;
+    }
+
+    public LiveData<Void> getMFiltroScrollInfinito() {
+        if (mFiltroScrollInfinito == null) {
+            mFiltroScrollInfinito = new MutableLiveData<>();
+        }
+        return mFiltroScrollInfinito;
+    }
+
+    public LiveData<Void> getMCondicionScrollInfinito() {
+        if (mCondicionScrollInfinito == null) {
+            mCondicionScrollInfinito = new MutableLiveData<>();
+        }
+        return mCondicionScrollInfinito;
     }
 }

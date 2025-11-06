@@ -51,7 +51,7 @@ public class PagosFragment extends Fragment {
             }
         });
 
-        viewModel.getMNuevosPagos().observe(getViewLifecycleOwner(), new Observer<List<Pago>>() {
+        viewModel.getMScrollInfinito().observe(getViewLifecycleOwner(), new Observer<List<Pago>>() {
             @Override
             public void onChanged(List<Pago> nuevosPagos) {
                 pagoAdapter.agregarDatos(nuevosPagos);
@@ -64,6 +64,26 @@ public class PagosFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 muestraDialog(s, false);
+            }
+        });
+
+        viewModel.getMFiltroScrollInfinito().observe(getViewLifecycleOwner(), new Observer<Void>() {
+            @Override
+            public void onChanged(Void unused) {
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) binding.rvPagos.getLayoutManager();
+                int cantidadItemsVisibles = linearLayoutManager.getChildCount();
+                int totalItems = linearLayoutManager.getItemCount();
+                int posicionPrimerItemVisible = linearLayoutManager.findFirstVisibleItemPosition();
+
+                viewModel.condicionScrollInfinito(cantidadItemsVisibles, totalItems, posicionPrimerItemVisible);
+            }
+        });
+
+        viewModel.getMCondicionScrollInfinito().observe(getViewLifecycleOwner(), new Observer<Void>() {
+            @Override
+            public void onChanged(Void unused) {
+                estaCargandoPagos = true;
+                viewModel.traerMasPagos(++paginaActual);
             }
         });
 
@@ -82,25 +102,9 @@ public class PagosFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                if (dy <= 0) return;
-                if (estaCargandoPagos || noHayMasPagos) return;
-
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int cantidadItemsVisibles = linearLayoutManager.getChildCount();
-                int totalItems = linearLayoutManager.getItemCount();
-                int posicionPrimerItemVisible = linearLayoutManager.findFirstVisibleItemPosition();
-
-                if ((cantidadItemsVisibles + posicionPrimerItemVisible) >= totalItems && posicionPrimerItemVisible >= 0) {
-                    estaCargandoPagos = true;
-                    cargarMasDatos();
-                }
+                viewModel.filtroScrollInfinito(dy, estaCargandoPagos, noHayMasPagos);
             }
         });
-    }
-
-    private void cargarMasDatos() {
-        viewModel.traerNuevosPagos(++paginaActual);
     }
 
     private void muestraDialog(String mensaje, boolean exito){
